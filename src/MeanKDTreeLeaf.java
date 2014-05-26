@@ -15,5 +15,9 @@ public class MeanKDTreeLeaf extends AbstractMeanKDTree {
     public KDTree getRight() {
 	return null;
     }
-
+    
+    public Point VecinoMasCercano( Point q ){
+	return this.value;
+    }
+    
 }

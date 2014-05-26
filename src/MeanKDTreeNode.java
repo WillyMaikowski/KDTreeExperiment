@@ -3,10 +3,7 @@ import java.util.ArrayList;
 
 public class MeanKDTreeNode extends AbstractMeanKDTree {
 
-    private Axis axis;
-    private KDTree right;
-    private KDTree left;
-
+   
     /**
      * points Nunca llega con un punto o vacio
      * 
