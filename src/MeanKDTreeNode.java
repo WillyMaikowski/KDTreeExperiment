@@ -1,7 +1,7 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class MeanKDTreeNode extends AbstractMeanKDTree {
+public class MeanKDTreeNode extends AbstractKDTree {
 
    
     /**

@@ -1,6 +1,6 @@
 import java.awt.Point;
 
-public class MeanKDTreeLeaf extends AbstractMeanKDTree {
+public class MeanKDTreeLeaf extends AbstractKDTree {
 
     private Point value;
 
