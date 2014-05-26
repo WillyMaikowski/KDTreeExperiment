@@ -1,8 +1,13 @@
+import java.awt.Point;
 
-public class AbstractKDTree {
+public abstract class AbstractKDTree implements KDTree {
 
-	public AbstractKDTree() {
-		
-	}
+    public AbstractKDTree() {
+
+    }
+
+    public Point VecinoMasCercano( KDTree T, Point q ) {
+	return null;
+    }
 
 }
