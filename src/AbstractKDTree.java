@@ -45,5 +45,4 @@ public abstract class AbstractKDTree implements KDTree {
 
 	return mejorActual;
     }
-
 }

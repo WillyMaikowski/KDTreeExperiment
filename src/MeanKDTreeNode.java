@@ -38,14 +38,4 @@ public class MeanKDTreeNode extends AbstractKDTree {
 	    this.right = new MeanKDTreeNode( p2, nAxis );
     }
 
-    public KDTree getLeft() {
-
-	return this.left;
-    }
-
-    public KDTree getRight() {
-
-	return this.right;
-    }
-
 }
