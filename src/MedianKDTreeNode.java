@@ -1,9 +1,10 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class MeanKDTreeNode extends AbstractKDTreeNode {
 
-    public MeanKDTreeNode( ArrayList<Point> points ) {
+public class MedianKDTreeNode extends AbstractKDTreeNode{
+    
+    public MedianKDTreeNode( ArrayList<Point> points ) {
 	this( points, new XAxis() );
     }
 
@@ -13,7 +14,7 @@ public class MeanKDTreeNode extends AbstractKDTreeNode {
      * @param points
      * @param axis
      */
-    public MeanKDTreeNode( ArrayList<Point> points, Axis axis ) {
+    public MedianKDTreeNode( ArrayList<Point> points, Axis axis ) {
 	super( points, axis );
     }
 
@@ -25,5 +26,4 @@ public class MeanKDTreeNode extends AbstractKDTreeNode {
 
 	return new MeanKDTreeNode( points, axis );
     }
-
 }
