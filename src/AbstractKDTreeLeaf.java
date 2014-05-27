@@ -1,4 +1,3 @@
-
-public abstract class AbstractKDTreeLeaf implements KDTree{
+public abstract class AbstractKDTreeLeaf implements KDTree {
 
 }

@@ -3,28 +3,24 @@ import java.util.ArrayList;
 
 public class XAxis extends AbstractAxis {
 
-    private double coord;
-        
-    public Axis getPerpendicular() {
-	return new YAxis();
-    }
+	private double coord;
 
-    public void setL( ArrayList<Point> points ) {
-	Point min = points.get( 0 );
-	Point max = points.get( 0 );
-	for ( Point p : points ){
-	    if ( p.x < min.x )
-		min = p;
-	    if ( p.x > max.x )
-		max = p;
+	public Axis getPerpendicular() {
+		return new YAxis();
 	}
-	this.coord = ( min.x + max.x ) / 2;
-    }
 
-    public int compare( Point p2 ) {
-	return (int)this.coord - p2.x;
-    }
+	public void setL( ArrayList<Point> points ) {
+		Point min = points.get( 0 );
+		Point max = points.get( 0 );
+		for( Point p : points ) {
+			if( p.x < min.x ) min = p;
+			if( p.x > max.x ) max = p;
+		}
+		this.coord = ( min.x + max.x ) / 2;
+	}
 
-    
+	public int compare( Point p2 ) {
+		return (int) this.coord - p2.x;
+	}
 
 }

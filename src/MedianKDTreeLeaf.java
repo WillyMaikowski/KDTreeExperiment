@@ -1,31 +1,29 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
+public class MedianKDTreeLeaf extends AbstractKDTreeLeaf {
 
-public class MedianKDTreeLeaf extends AbstractKDTreeLeaf{
-    
-    private Point value;
+	private Point value;
 
-    public MedianKDTreeLeaf( Point p ) {
-	this.value = p;
-    }
-    
-    public Point VecinoMasCercano( Point q ){
-	return this.value;
-    }
+	public MedianKDTreeLeaf( Point p ) {
+		this.value = p;
+	}
 
-    
-    public KDTree createLeaf( Point q ) {
-	return null;
-    }
+	public Point VecinoMasCercano( Point q ) {
+		return this.value;
+	}
 
-    public KDTree createNode( ArrayList<Point> points, Axis axis ) {
-	
-	return null;
-    }
+	public KDTree createLeaf( Point q ) {
+		return null;
+	}
 
-    @Override
-    public Point VecinoMasCercano( KDTree T, Point q ) {
-	return T.VecinoMasCercano( q );
-    }
+	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
+
+		return null;
+	}
+
+	@Override
+	public Point VecinoMasCercano( KDTree T, Point q ) {
+		return T.VecinoMasCercano( q );
+	}
 }
