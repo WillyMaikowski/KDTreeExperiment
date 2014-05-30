@@ -1,15 +1,15 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class XAxis extends AbstractAxis {
+public class MeanXAxis extends AbstractAxis {
 
 	private double coord;
 
 	public Axis getPerpendicular() {
-		return new YAxis();
+		return new MeanYAxis();
 	}
 
-	public void setL( ArrayList<Point> points ) {
+    public void setL( ArrayList<Point> points ) {
 		Point min = points.get( 0 );
 		Point max = points.get( 0 );
 		for( Point p : points ) {
