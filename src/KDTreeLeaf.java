@@ -1,11 +1,11 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class MeanKDTreeLeaf extends AbstractKDTreeLeaf {
 
-	private Point value;
+public class KDTreeLeaf implements KDTree{
+    private Point value;
 
-	public MeanKDTreeLeaf( Point p ) {
+	public KDTreeLeaf( Point p ) {
 		this.value = p;
 	}
 
@@ -18,7 +18,6 @@ public class MeanKDTreeLeaf extends AbstractKDTreeLeaf {
 	}
 
 	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
-
 		return null;
 	}
 
@@ -26,5 +25,4 @@ public class MeanKDTreeLeaf extends AbstractKDTreeLeaf {
 	public Point VecinoMasCercano( KDTree T, Point q ) {
 		return T.VecinoMasCercano( q );
 	}
-
 }

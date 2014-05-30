@@ -17,9 +17,6 @@ public class MedianKDTreeNode extends AbstractKDTreeNode {
 		super( points, axis );
 	}
 
-	public KDTree createLeaf( Point q ) {
-		return new MeanKDTreeLeaf( q );
-	}
 
 	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
 

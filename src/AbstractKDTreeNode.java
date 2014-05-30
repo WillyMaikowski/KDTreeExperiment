@@ -71,4 +71,8 @@ public abstract class AbstractKDTreeNode implements KDTree {
 
 		return mejorActual;
 	}
+	
+	public KDTree createLeaf( Point q ) {
+		return new KDTreeLeaf( q );
+	}
 }
