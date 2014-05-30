@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public class MedianKDTreeNode extends AbstractKDTreeNode {
 
     public MedianKDTreeNode( ArrayList<Point> points ) {
-	this( points, new MeanXAxis() );
+	this( points, new MedianXAxis() );
     }
 
     /**
@@ -18,7 +18,6 @@ public class MedianKDTreeNode extends AbstractKDTreeNode {
     }
 
     public KDTree createNode( ArrayList<Point> points, Axis axis ) {
-
-	return new MeanKDTreeNode( points, axis );
+	return new MedianKDTreeNode( points, axis );
     }
 }
