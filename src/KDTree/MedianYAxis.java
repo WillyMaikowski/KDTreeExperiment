@@ -12,8 +12,9 @@ public class MedianYAxis extends AbstractAxis {
 	}
 
 	public void setL( List<Point> points ) {
-		this.coord = randomizedSelect( (Point[]) points.toArray(), 0,
-		      points.size(), points.size() / 2 );
+		this.coord = randomizedSelect(
+		      points.toArray( new Point[points.size()] ), 0, points.size() - 1,
+		      points.size() / 2 );
 	}
 
 	private double randomizedSelect( Point[] A, int p, int r, int i ) {
@@ -21,7 +22,8 @@ public class MedianYAxis extends AbstractAxis {
 		int q = randomized_Partition( A, p, r );
 		int k = q - p + 1;
 
-		if( i == k ) return randomizedSelect( A, p, q - 1, i );
+		if( i == k ) return A[q].getY();
+		else if( i < k ) return randomizedSelect( A, p, q - 1, i );
 		else return randomizedSelect( A, q + 1, r, i - k );
 	}
 

@@ -31,12 +31,16 @@ public class MainExperiment {
 
 	public static void main( String[] args ) {
 		int c = 1;
-		int n = 21;
+		int n = 2;
 		List<Point> listofPoints = generateRandomPoints( c, n );
 
-		KDTree tree = new MeanKDTreeNode( listofPoints );
+		//KDTree tree = new MeanKDTreeNode( listofPoints );
 		KDTree tree2 = new MedianKDTreeNode( listofPoints );
-		System.out.println( tree.height() );
+
+		//System.out.println( tree.height() );
+		System.out.println( tree2.height() );
+		//System.out.println( tree.VecinoMasCercano( new Point( 1.0, 1.0 ) ) );
+		System.out.println( tree2.VecinoMasCercano( new Point( 1.0, 1.0 ) ) );
 
 	}
 
