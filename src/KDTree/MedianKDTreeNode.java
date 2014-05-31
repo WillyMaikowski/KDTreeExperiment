@@ -1,11 +1,12 @@
 package KDTree;
 
 import KDTree.Point;
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class MedianKDTreeNode extends AbstractKDTreeNode {
 
-	public MedianKDTreeNode( ArrayList<Point> points ) {
+	public MedianKDTreeNode( List<Point> points ) {
 		this( points, new MedianXAxis() );
 	}
 
@@ -15,11 +16,11 @@ public class MedianKDTreeNode extends AbstractKDTreeNode {
 	 * @param points
 	 * @param axis
 	 */
-	public MedianKDTreeNode( ArrayList<Point> points, Axis axis ) {
+	public MedianKDTreeNode( List<Point> points, Axis axis ) {
 		super( points, axis );
 	}
 
-	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
+	public KDTree createNode( List<Point> points, Axis axis ) {
 		return new MedianKDTreeNode( points, axis );
 	}
 }

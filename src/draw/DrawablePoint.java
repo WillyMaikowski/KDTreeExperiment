@@ -26,7 +26,7 @@ public class DrawablePoint extends JPanel {
 
 		g2d.setColor( Color.red );
 		for( Point point : p ) {
-			g2d.drawOval( (int)point.getX() * 10, (int)point.getY() * 10, 5, 5 );
+			g2d.drawOval( (int) point.getX() * 10, (int) point.getY() * 10, 5, 5 );
 		}
 	}
 }

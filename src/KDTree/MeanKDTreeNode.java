@@ -1,7 +1,6 @@
 package KDTree;
 
 import KDTree.Point;
-import java.util.ArrayList;
 import java.util.List;
 
 public class MeanKDTreeNode extends AbstractKDTreeNode {
@@ -20,7 +19,7 @@ public class MeanKDTreeNode extends AbstractKDTreeNode {
 		super( listofPoints, axis );
 	}
 
-	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
+	public KDTree createNode( List<Point> points, Axis axis ) {
 
 		return new MeanKDTreeNode( points, axis );
 	}

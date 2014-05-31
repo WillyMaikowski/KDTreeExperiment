@@ -1,7 +1,8 @@
 package KDTree;
 
 import KDTree.Point;
-import java.util.ArrayList;
+
+import java.util.List;
 
 public interface KDTree {
 	public Point VecinoMasCercano( KDTree T, Point q );
@@ -10,7 +11,7 @@ public interface KDTree {
 
 	public KDTree createLeaf( Point q );
 
-	public KDTree createNode( ArrayList<Point> points, Axis axis );
-	
+	public KDTree createNode( List<Point> points, Axis axis );
+
 	public int height();
 }

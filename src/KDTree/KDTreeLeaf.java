@@ -1,7 +1,8 @@
 package KDTree;
 
 import KDTree.Point;
-import java.util.ArrayList;
+
+import java.util.List;
 
 public class KDTreeLeaf implements KDTree {
 	private Point value;
@@ -18,12 +19,12 @@ public class KDTreeLeaf implements KDTree {
 		return null;
 	}
 
-	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
+	public KDTree createNode( List<Point> points, Axis axis ) {
 		return null;
 	}
-	
-	public int height(){
-	    return 1;
+
+	public int height() {
+		return 1;
 	}
 
 	@Override
