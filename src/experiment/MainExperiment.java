@@ -4,10 +4,28 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JFrame;
+
+import draw.DrawablePoint;
+
 public class MainExperiment {
 
     public static void main( String[] args ) {
 
+	int c = 1;
+	int n = 10;
+	int x = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) )*10;
+	int y = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) )*10;
+
+	List<Point> listofPoints = generateLowDiscrepancyPoints( c, n );
+
+	JFrame frame = new JFrame( "Points" );
+	frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+	frame.setSize( x, y );
+
+	frame.add( new DrawablePoint( listofPoints ) );
+
+	frame.setVisible( true );
     }
 
     /**
@@ -22,8 +40,8 @@ public class MainExperiment {
 
 	for ( int i = 1; i <= numPoints; i++ ){
 	    result.add( generateRandomPoint( 0, 0,
-		    ( c * Math.sqrt( numPoints ) ),
-		    ( c * Math.sqrt( numPoints ) ) ) );
+		    (int)( c * Math.sqrt( numPoints ) ),
+		    (int)( c * Math.sqrt( numPoints ) ) ) );
 	}
 
 	return result;
