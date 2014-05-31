@@ -19,6 +19,10 @@ public class KDTreeLeaf implements KDTree {
 	public KDTree createNode( ArrayList<Point> points, Axis axis ) {
 		return null;
 	}
+	
+	public int height(){
+	    return 1;
+	}
 
 	@Override
 	public Point VecinoMasCercano( KDTree T, Point q ) {

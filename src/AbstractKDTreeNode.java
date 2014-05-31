@@ -34,6 +34,10 @@ public abstract class AbstractKDTreeNode implements KDTree {
 	public Point VecinoMasCercano( KDTree T, Point q ) {
 		return T.VecinoMasCercano( q );
 	}
+	
+	public int height(){
+	    return Math.max( this.left.height(), this.right.height() ) + 1;
+	}
 
 	public Point VecinoMasCercano( Point q ) {
 

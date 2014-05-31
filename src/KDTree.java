@@ -9,4 +9,6 @@ public interface KDTree {
 	public KDTree createLeaf( Point q );
 
 	public KDTree createNode( ArrayList<Point> points, Axis axis );
+	
+	public int height();
 }
