@@ -1,28 +1,31 @@
 package KDTree;
 
-import java.awt.Point;
-import java.util.ArrayList;
+import KDTree.Point;
+import java.util.List;
 
 public class MeanXAxis extends AbstractAxis {
 
-	private double coord;
+    private double coord;
 
-	public Axis getPerpendicular() {
-		return new MeanYAxis();
-	}
+    public Axis getPerpendicular() {
+	return new MeanYAxis();
+    }
 
-	public void setL( ArrayList<Point> points ) {
-		Point min = points.get( 0 );
-		Point max = points.get( 0 );
-		for( Point p : points ) {
-			if( p.x < min.x ) min = p;
-			if( p.x > max.x ) max = p;
-		}
-		this.coord = ( min.x + max.x ) / 2;
+    public void setL( List<Point> points ) {
+	Point min = points.get( 0 );
+	Point max = points.get( 0 );
+	for ( Point p : points ){
+	    if ( p.getX() < min.getX() )
+		min = p;
+	    if ( p.getX() > max.getX() )
+		max = p;
 	}
+	points = null;
+	this.coord = 1.0*( min.getX() + max.getX() ) / 2.0;
+    }
 
-	public int compare( Point p2 ) {
-		return (int) this.coord - p2.x;
-	}
+    public double compare( Point p2 ) {
+	return  this.coord - p2.getX();
+    }
 
 }

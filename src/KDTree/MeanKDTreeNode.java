@@ -1,22 +1,23 @@
 package KDTree;
 
-import java.awt.Point;
+import KDTree.Point;
 import java.util.ArrayList;
+import java.util.List;
 
 public class MeanKDTreeNode extends AbstractKDTreeNode {
 
-	public MeanKDTreeNode( ArrayList<Point> points ) {
-		this( points, new MeanXAxis() );
+	public MeanKDTreeNode( List<Point> listofPoints ) {
+		this( listofPoints, new MeanXAxis() );
 	}
 
 	/**
 	 * points Nunca llega con un punto o vacio
 	 * 
-	 * @param points
+	 * @param listofPoints
 	 * @param axis
 	 */
-	public MeanKDTreeNode( ArrayList<Point> points, Axis axis ) {
-		super( points, axis );
+	public MeanKDTreeNode( List<Point> listofPoints, Axis axis ) {
+		super( listofPoints, axis );
 	}
 
 	public KDTree createNode( ArrayList<Point> points, Axis axis ) {

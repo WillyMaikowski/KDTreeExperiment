@@ -1,7 +1,7 @@
 package KDTree;
 
-import java.awt.Point;
-import java.util.ArrayList;
+import KDTree.Point;
+import java.util.List;
 
 public class MedianXAxis extends AbstractAxis {
 
@@ -11,13 +11,13 @@ public class MedianXAxis extends AbstractAxis {
 		return new MedianYAxis();
 	}
 
-	public void setL( ArrayList<Point> points ) {
+	public void setL( List<Point> points ) {
 		this.coord = randomizedSelect( (Point[]) points.toArray(), 0,
 		      points.size(), points.size() / 2 );
 	}
 
-	private int randomizedSelect( Point[] A, int p, int r, int i ) {
-		if( p == r ) return A[p].x;
+	private double randomizedSelect( Point[] A, int p, int r, int i ) {
+		if( p == r ) return A[p].getX();
 		int q = randomized_Partition( A, p, r );
 		int k = q - p + 1;
 
@@ -37,7 +37,7 @@ public class MedianXAxis extends AbstractAxis {
 		Point pivot = A[r];
 		int i = p - 1;
 		for( int j = p; j <= r - 1; j++ ) {
-			if( A[j].x <= pivot.x ) {
+			if( A[j].getX() <= pivot.getX() ) {
 				i++;
 				Point dummy = A[i];
 				A[i] = A[j];
@@ -50,8 +50,8 @@ public class MedianXAxis extends AbstractAxis {
 		return i + 1;
 	}
 
-	public int compare( Point p2 ) {
-		return (int) this.coord - p2.x;
+	public double compare( Point p2 ) {
+		return this.coord - p2.getX();
 	}
 
 }

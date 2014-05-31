@@ -3,7 +3,7 @@ package draw;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Point;
+import KDTree.Point;
 import java.util.List;
 
 import javax.swing.JPanel;
@@ -26,7 +26,7 @@ public class DrawablePoint extends JPanel {
 
 		g2d.setColor( Color.red );
 		for( Point point : p ) {
-			g2d.drawOval( point.x * 10, point.y * 10, 5, 5 );
+			g2d.drawOval( (int)point.getX() * 10, (int)point.getY() * 10, 5, 5 );
 		}
 	}
 }

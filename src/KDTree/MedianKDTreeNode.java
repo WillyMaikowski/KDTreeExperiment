@@ -1,6 +1,6 @@
 package KDTree;
 
-import java.awt.Point;
+import KDTree.Point;
 import java.util.ArrayList;
 
 public class MedianKDTreeNode extends AbstractKDTreeNode {

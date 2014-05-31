@@ -1,14 +1,14 @@
 package KDTree;
 
-import java.awt.Point;
-import java.util.ArrayList;
+import KDTree.Point;
+import java.util.List;
 
 public interface Axis {
 	public Axis getPerpendicular();
 
-	public void setL( ArrayList<Point> points );
+	public void setL( List<Point> listofPoints );
 
-	public int compare( Point p1 );
+	public double compare( Point p1 );
 
 	public double getCoord();
 }
