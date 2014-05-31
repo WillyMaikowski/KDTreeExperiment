@@ -15,7 +15,7 @@ public class MedianYAxis extends AbstractAxis {
     
     private int randomizedSelect( Point[] A, int p, int r, int i ) {
 	if ( p == r )
-	    return A[p].x;
+	    return A[p].y;
 	int q = randomized_Partition( A, p, r );
 	int k = q - p + 1;
 
