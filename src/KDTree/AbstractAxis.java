@@ -1,3 +1,5 @@
+package KDTree;
+
 public abstract class AbstractAxis implements Axis {
 	protected double coord;
 

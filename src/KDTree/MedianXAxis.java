@@ -1,12 +1,14 @@
+package KDTree;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class MedianYAxis extends AbstractAxis {
+public class MedianXAxis extends AbstractAxis {
 
 	private double coord;
 
 	public Axis getPerpendicular() {
-		return new MedianXAxis();
+		return new MedianYAxis();
 	}
 
 	public void setL( ArrayList<Point> points ) {
@@ -15,7 +17,7 @@ public class MedianYAxis extends AbstractAxis {
 	}
 
 	private int randomizedSelect( Point[] A, int p, int r, int i ) {
-		if( p == r ) return A[p].y;
+		if( p == r ) return A[p].x;
 		int q = randomized_Partition( A, p, r );
 		int k = q - p + 1;
 
@@ -35,7 +37,7 @@ public class MedianYAxis extends AbstractAxis {
 		Point pivot = A[r];
 		int i = p - 1;
 		for( int j = p; j <= r - 1; j++ ) {
-			if( A[j].y <= pivot.y ) {
+			if( A[j].x <= pivot.x ) {
 				i++;
 				Point dummy = A[i];
 				A[i] = A[j];
@@ -49,7 +51,7 @@ public class MedianYAxis extends AbstractAxis {
 	}
 
 	public int compare( Point p2 ) {
-		return (int) this.coord - p2.y;
+		return (int) this.coord - p2.x;
 	}
 
 }

@@ -4,9 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-
-import draw.DrawablePoint;
+import KDTree.KDTree;
+import KDTree.MeanKDTreeNode;
 
 public class MainExperiment {
 
@@ -30,6 +29,9 @@ public class MainExperiment {
 	int c = 1;
 	int n = 10;
 	List<Point> listofPoints = generateRandomPoints( c, n );
+	
+	KDTree tree = new MeanKDTreeNode();
+	
     }
 
     /**

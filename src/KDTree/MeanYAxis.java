@@ -1,12 +1,14 @@
+package KDTree;
+
 import java.awt.Point;
 import java.util.ArrayList;
 
-public class MeanXAxis extends AbstractAxis {
+public class MeanYAxis extends AbstractAxis {
 
 	private double coord;
 
 	public Axis getPerpendicular() {
-		return new MeanYAxis();
+		return new MeanXAxis();
 	}
 
 	public void setL( ArrayList<Point> points ) {
@@ -16,11 +18,15 @@ public class MeanXAxis extends AbstractAxis {
 			if( p.x < min.x ) min = p;
 			if( p.x > max.x ) max = p;
 		}
-		this.coord = ( min.x + max.x ) / 2;
+		this.coord = ( min.y + max.y ) / 2;
+
 	}
 
+	/**
+	 * > 0 si p1 > p2 = < 0 si p1 < p2
+	 */
 	public int compare( Point p2 ) {
-		return (int) this.coord - p2.x;
+		return (int) this.coord - p2.y;
 	}
 
 }
