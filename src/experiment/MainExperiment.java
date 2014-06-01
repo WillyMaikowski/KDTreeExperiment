@@ -96,8 +96,6 @@ public class MainExperiment {
 						elapsedTime = stopTime - startTime;
 						expCont.addObservation( experimentTree.height(), elapsedTime,
 						      sizeof( experimentTree ) );
-						System.out.println( expCont.getAverageTime() + " "
-						      + expCont.getTimeStd() );
 					}
 					writer.println( expCont.getResult() );
 					System.out.println( "Termino 2^" + size + " " + treeName + " "
@@ -118,14 +116,14 @@ public class MainExperiment {
 					      treeName, pointName, (int) Math.pow( 2, size ) );
 
 					while( !expCont.finished() ) {
-						List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
+						List<Point> listofPoints = generateLowDiscrepancyPoints( c,
+						      size );
 						startTime = System.currentTimeMillis();
 						experimentTree = new MeanKDTreeNode( listofPoints );
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						expCont.addObservation( experimentTree.height(), elapsedTime,
 						      sizeof( experimentTree ) );
-						
 					}
 					writer.println( expCont.getResult() );
 					System.out.println( "Termino 2^" + size + " " + treeName + " "
@@ -153,8 +151,6 @@ public class MainExperiment {
 						elapsedTime = stopTime - startTime;
 						expCont.addObservation( experimentTree.height(), elapsedTime,
 						      sizeof( experimentTree ) );
-						System.out.println( expCont.getAverageTime() + " "
-						      + expCont.getTimeStd() );
 					}
 					writer.println( expCont.getResult() );
 					System.out.println( "Termino 2^" + size + " " + treeName + " "
@@ -166,7 +162,7 @@ public class MainExperiment {
 			// MedianKDTree con puntos de baja discrepancia
 			{
 				treeName = "MedianKDTree";
-				pointName = "RandomPoints";
+				pointName = "LowDiscrepancy";
 				writer = new PrintWriter( "resultados_construccion_" + treeName
 				      + "_" + pointName + " _" + Math.random() + ".txt" );
 
@@ -175,15 +171,14 @@ public class MainExperiment {
 					      treeName, pointName, (int) Math.pow( 2, size ) );
 
 					while( !expCont.finished() ) {
-						List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
+						List<Point> listofPoints = generateLowDiscrepancyPoints( c,
+						      size );
 						startTime = System.currentTimeMillis();
 						experimentTree = new MedianKDTreeNode( listofPoints );
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						expCont.addObservation( experimentTree.height(), elapsedTime,
 						      sizeof( experimentTree ) );
-						System.out.println( expCont.getAverageTime() + " "
-						      + expCont.getTimeStd() );
 					}
 					writer.println( expCont.getResult() );
 					System.out.println( "Termino 2^" + size + " " + treeName + " "
