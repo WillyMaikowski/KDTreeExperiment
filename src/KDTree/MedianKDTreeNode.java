@@ -6,6 +6,11 @@ import java.util.List;
 
 public class MedianKDTreeNode extends AbstractKDTreeNode {
 
+	/**
+	 * 
+	 */
+   private static final long serialVersionUID = 8640158115201191638L;
+
 	public MedianKDTreeNode( List<Point> points ) {
 		this( points, new MedianXAxis() );
 	}

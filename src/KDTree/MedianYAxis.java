@@ -5,6 +5,10 @@ import java.util.List;
 
 public class MedianYAxis extends AbstractAxis {
 
+	/**
+	 * 
+	 */
+   private static final long serialVersionUID = -7625415684487690895L;
 	private double coord;
 
 	public Axis getPerpendicular() {

@@ -6,6 +6,11 @@ import java.util.List;
 
 public abstract class AbstractKDTreeNode implements KDTree {
 
+	/**
+	 * 
+	 */
+   private static final long serialVersionUID = -2854002172086398693L;
+	
 	protected Axis axis;
 	protected KDTree right;
 	protected KDTree left;

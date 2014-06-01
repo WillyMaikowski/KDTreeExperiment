@@ -4,7 +4,7 @@ import KDTree.Point;
 
 import java.util.List;
 
-public interface KDTree {
+public interface KDTree extends java.io.Serializable{
 	public Point VecinoMasCercano( KDTree T, Point q );
 
 	public Point VecinoMasCercano( Point q );

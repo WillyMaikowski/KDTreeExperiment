@@ -1,5 +1,10 @@
 package experiment;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,7 +13,6 @@ import javax.swing.JFrame;
 import draw.DrawablePoint;
 import KDTree.KDTree;
 import KDTree.MeanKDTreeNode;
-import KDTree.MedianKDTreeNode;
 import KDTree.Point;
 
 public class MainExperiment {
@@ -16,7 +20,7 @@ public class MainExperiment {
 	/*
 	 * public static void main( String[] args ) {
 	 * 
-	 * int c = 1; int n = 10; int x = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) )
+	 * int c = 1; int n = 20; int x = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) )
 	 * * 10; int y = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) ) * 10;
 	 * 
 	 * List<Point> listofPoints = generateRandomPoints( c, n );
@@ -30,18 +34,93 @@ public class MainExperiment {
 	 */
 
 	public static void main( String[] args ) {
-		int c = 1;
-		int n = 2;
-		List<Point> listofPoints = generateRandomPoints( c, n );
+		/*
+		 * int c = 1; int n = 20; List<Point> listofPoints = generateRandomPoints(
+		 * c, n ); List<Point> listofPoints2 = listofPoints;
+		 * 
+		 * long startTime = System.currentTimeMillis(); KDTree tree = new
+		 * MeanKDTreeNode( listofPoints ); long stopTime =
+		 * System.currentTimeMillis(); long elapsedTime = stopTime - startTime;
+		 * System.out.println( "Tiempo crear mean= " + elapsedTime );
+		 * 
+		 * startTime = System.currentTimeMillis(); KDTree tree2 = new
+		 * MedianKDTreeNode( listofPoints2 ); stopTime =
+		 * System.currentTimeMillis(); elapsedTime = stopTime - startTime;
+		 * System.out.println( "Tiempo crear median= " + elapsedTime );
+		 * 
+		 * System.out.println( "Altura mean= " + tree.height() );
+		 * System.out.println( "Altura median= " + tree2.height() );
+		 * 
+		 * startTime = System.currentTimeMillis(); System.out.println(
+		 * tree.VecinoMasCercano( listofPoints.get( listofPoints.size() -1 ) ) );
+		 * stopTime = System.currentTimeMillis(); elapsedTime = stopTime -
+		 * startTime; System.out.println( "Tiempo consulta mean= " + elapsedTime
+		 * );
+		 * 
+		 * startTime = System.currentTimeMillis(); System.out.println(
+		 * tree2.VecinoMasCercano( listofPoints.get( listofPoints.size() -1 ) ) );
+		 * stopTime = System.currentTimeMillis(); elapsedTime = stopTime -
+		 * startTime; System.out.println( "Tiempo consulta median= " + elapsedTime
+		 * );
+		 */
 
-		KDTree tree = new MeanKDTreeNode( listofPoints );
-		KDTree tree2 = new MedianKDTreeNode( listofPoints );
+		int minN = 10;
+		int maxN = 10;
+		KDTree experimentTree;
+		long startTime;
+		long stopTime;
+		long elapsedTime;
 
-		System.out.println( tree.height() );
-		System.out.println( tree2.height() );
-		System.out.println( tree.VecinoMasCercano( new Point( 1.0, 1.0 ) ) );
-		System.out.println( tree2.VecinoMasCercano( new Point( 1.0, 1.0 ) ) );
+		try {
+			// MeanKDTree con puntos aleatorios
+			{
+				double rndNumber = Math.random();
+				PrintWriter writer = new PrintWriter(
+				      "resultados_MeanKDTree_RandomPoints" + "_" + rndNumber
+				            + ".txt" );
 
+				for( int size = minN; size <= maxN; size++ ) {
+					StructExperimentContainer expCont = new StructExperimentContainer(
+					      "MeanKDTree", "RandomPoints", (int) Math.pow( 2, size ) );
+
+					while( !expCont.finished() ) {
+						List<Point> listofPoints = generateRandomPoints( 1, size );
+						startTime = System.currentTimeMillis();
+						experimentTree = new MeanKDTreeNode( listofPoints );
+						stopTime = System.currentTimeMillis();
+						elapsedTime = stopTime - startTime;
+						expCont.addObservation( experimentTree.height(), elapsedTime, sizeof( experimentTree ) );
+					}
+					writer.println( expCont.getResult() );
+				}
+				writer.close();
+			}
+
+			// MeanKDTree con puntos de baja discrepancia
+
+			// MedianKDTree con puntos aleatorios
+
+			// MedianKDTree con puntos de baja discrepancia
+		}
+		catch( FileNotFoundException e ) {
+			e.printStackTrace();
+		}
+      catch( IOException e ) {
+	      e.printStackTrace();
+      }
+	}
+
+	public static int sizeof( Object obj ) throws IOException {
+
+		ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
+		ObjectOutputStream objectOutputStream = new ObjectOutputStream(
+		      byteOutputStream );
+
+		objectOutputStream.writeObject( obj );
+		objectOutputStream.flush();
+		objectOutputStream.close();
+
+		return byteOutputStream.toByteArray().length;
 	}
 
 	/**

@@ -5,6 +5,11 @@ import java.util.List;
 
 public class MeanKDTreeNode extends AbstractKDTreeNode {
 
+	/**
+	 * 
+	 */
+   private static final long serialVersionUID = 1240840444210419274L;
+
 	public MeanKDTreeNode( List<Point> listofPoints ) {
 		this( listofPoints, new MeanXAxis() );
 	}
