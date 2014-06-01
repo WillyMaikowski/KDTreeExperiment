@@ -27,7 +27,6 @@ public class KDTreeLeaf implements KDTree {
 		return 1;
 	}
 
-	@Override
 	public Point VecinoMasCercano( KDTree T, Point q ) {
 		return T.VecinoMasCercano( q );
 	}

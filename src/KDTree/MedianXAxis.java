@@ -12,7 +12,7 @@ public class MedianXAxis extends AbstractAxis {
 	}
 
 	public void setL( List<Point> points ) {
-		this.coord = randomizedSelect(
+		this.coord = this.randomizedSelect(
 		      points.toArray( new Point[points.size()] ), 0, points.size() - 1,
 		      points.size() / 2 );
 	}

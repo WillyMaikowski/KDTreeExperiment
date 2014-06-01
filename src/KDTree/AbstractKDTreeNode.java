@@ -14,11 +14,15 @@ public abstract class AbstractKDTreeNode implements KDTree {
 		this.axis = axis;
 
 		this.axis.setL( listofPoints );
-		ArrayList<Point> p1 = new ArrayList<Point>();
-		ArrayList<Point> p2 = new ArrayList<Point>();
+		ArrayList<Point> p1 = new ArrayList<Point>();/* contiene los puntos */
+		ArrayList<Point> p2 = new ArrayList<Point>();/*
+																	 * contiene los puntos
+																	 * mayores al axis
+																	 */
 		for( Point p : listofPoints ) {
 
-			if( this.axis.compare( p ) <= 0 ) {
+			if( this.axis.compare( p ) >= 0 ) {// el axis es mayor que el punto =>
+				                                // punto va al lado izquierdo
 				p1.add( p );
 			}
 			else {
