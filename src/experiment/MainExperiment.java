@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import draw.DrawablePoint;
 import KDTree.KDTree;
 import KDTree.MeanKDTreeNode;
+import KDTree.MedianKDTreeNode;
 import KDTree.Point;
 
 public class MainExperiment {
@@ -65,49 +66,138 @@ public class MainExperiment {
 		 */
 
 		int minN = 10;
-		int maxN = 10;
+		int maxN = 20;
 		KDTree experimentTree;
 		long startTime;
 		long stopTime;
 		long elapsedTime;
+		String treeName;
+		String pointName;
+		PrintWriter writer;
+		double c = 1.0;
 
 		try {
 			// MeanKDTree con puntos aleatorios
 			{
-				double rndNumber = Math.random();
-				PrintWriter writer = new PrintWriter(
-				      "resultados_MeanKDTree_RandomPoints" + "_" + rndNumber
-				            + ".txt" );
+				treeName = "MeanKDTree";
+				pointName = "RandomPoints";
+				writer = new PrintWriter( "resultados_construccion_" + treeName
+				      + "_" + pointName + " _" + Math.random() + ".txt" );
 
 				for( int size = minN; size <= maxN; size++ ) {
 					StructExperimentContainer expCont = new StructExperimentContainer(
-					      "MeanKDTree", "RandomPoints", (int) Math.pow( 2, size ) );
+					      treeName, pointName, (int) Math.pow( 2, size ) );
 
 					while( !expCont.finished() ) {
-						List<Point> listofPoints = generateRandomPoints( 1, size );
+						List<Point> listofPoints = generateRandomPoints( c, size );
 						startTime = System.currentTimeMillis();
 						experimentTree = new MeanKDTreeNode( listofPoints );
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
-						expCont.addObservation( experimentTree.height(), elapsedTime, sizeof( experimentTree ) );
+						expCont.addObservation( experimentTree.height(), elapsedTime,
+						      sizeof( experimentTree ) );
+						System.out.println( expCont.getAverageTime() + " "
+						      + expCont.getTimeStd() );
 					}
 					writer.println( expCont.getResult() );
+					System.out.println( "Termino 2^" + size + " " + treeName + " "
+					      + pointName );
 				}
 				writer.close();
 			}
 
 			// MeanKDTree con puntos de baja discrepancia
+			{
+				treeName = "MeanKDTree";
+				pointName = "LowDiscrepancy";
+				writer = new PrintWriter( "resultados_construccion_" + treeName
+				      + "_" + pointName + " _" + Math.random() + ".txt" );
+
+				for( int size = minN; size <= maxN; size++ ) {
+					StructExperimentContainer expCont = new StructExperimentContainer(
+					      treeName, pointName, (int) Math.pow( 2, size ) );
+
+					while( !expCont.finished() ) {
+						List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
+						startTime = System.currentTimeMillis();
+						experimentTree = new MeanKDTreeNode( listofPoints );
+						stopTime = System.currentTimeMillis();
+						elapsedTime = stopTime - startTime;
+						expCont.addObservation( experimentTree.height(), elapsedTime,
+						      sizeof( experimentTree ) );
+						
+					}
+					writer.println( expCont.getResult() );
+					System.out.println( "Termino 2^" + size + " " + treeName + " "
+					      + pointName );
+				}
+				writer.close();
+			}
 
 			// MedianKDTree con puntos aleatorios
+			{
+				treeName = "MedianKDTree";
+				pointName = "RandomPoints";
+				writer = new PrintWriter( "resultados_construccion_" + treeName
+				      + "_" + pointName + " _" + Math.random() + ".txt" );
+
+				for( int size = minN; size <= maxN; size++ ) {
+					StructExperimentContainer expCont = new StructExperimentContainer(
+					      treeName, pointName, (int) Math.pow( 2, size ) );
+
+					while( !expCont.finished() ) {
+						List<Point> listofPoints = generateRandomPoints( c, size );
+						startTime = System.currentTimeMillis();
+						experimentTree = new MedianKDTreeNode( listofPoints );
+						stopTime = System.currentTimeMillis();
+						elapsedTime = stopTime - startTime;
+						expCont.addObservation( experimentTree.height(), elapsedTime,
+						      sizeof( experimentTree ) );
+						System.out.println( expCont.getAverageTime() + " "
+						      + expCont.getTimeStd() );
+					}
+					writer.println( expCont.getResult() );
+					System.out.println( "Termino 2^" + size + " " + treeName + " "
+					      + pointName );
+				}
+				writer.close();
+			}
 
 			// MedianKDTree con puntos de baja discrepancia
+			{
+				treeName = "MedianKDTree";
+				pointName = "RandomPoints";
+				writer = new PrintWriter( "resultados_construccion_" + treeName
+				      + "_" + pointName + " _" + Math.random() + ".txt" );
+
+				for( int size = minN; size <= maxN; size++ ) {
+					StructExperimentContainer expCont = new StructExperimentContainer(
+					      treeName, pointName, (int) Math.pow( 2, size ) );
+
+					while( !expCont.finished() ) {
+						List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
+						startTime = System.currentTimeMillis();
+						experimentTree = new MedianKDTreeNode( listofPoints );
+						stopTime = System.currentTimeMillis();
+						elapsedTime = stopTime - startTime;
+						expCont.addObservation( experimentTree.height(), elapsedTime,
+						      sizeof( experimentTree ) );
+						System.out.println( expCont.getAverageTime() + " "
+						      + expCont.getTimeStd() );
+					}
+					writer.println( expCont.getResult() );
+					System.out.println( "Termino 2^" + size + " " + treeName + " "
+					      + pointName );
+				}
+				writer.close();
+			}
 		}
 		catch( FileNotFoundException e ) {
 			e.printStackTrace();
 		}
-      catch( IOException e ) {
-	      e.printStackTrace();
-      }
+		catch( IOException e ) {
+			e.printStackTrace();
+		}
 	}
 
 	public static int sizeof( Object obj ) throws IOException {
@@ -129,7 +219,7 @@ public class MainExperiment {
 	 * @param n
 	 * @return
 	 */
-	public static List<Point> generateRandomPoints( int c, int n ) {
+	public static List<Point> generateRandomPoints( double c, int n ) {
 		List<Point> result = new ArrayList<Point>();
 		double numPoints = Math.pow( 2, n );
 
@@ -142,7 +232,7 @@ public class MainExperiment {
 		return result;
 	}
 
-	public static List<Point> generateLowDiscrepancyPoints( int c, int n ) {
+	public static List<Point> generateLowDiscrepancyPoints( double c, int n ) {
 		List<Point> result = new ArrayList<Point>();
 		double numPoints = Math.pow( 2, n );
 		double delta = Math.pow( c, 2 );
