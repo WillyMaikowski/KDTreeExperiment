@@ -37,8 +37,7 @@ public class RecordReader {
 	/**
 	 * Reads the next object in the record using an ObjectInputStream.
 	 */
-	public Object readObject() throws IOException, OptionalDataException,
-	      ClassNotFoundException {
+	public Object readObject() throws IOException, OptionalDataException, ClassNotFoundException {
 		return getObjectInputStream().readObject();
 	}
 

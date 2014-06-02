@@ -22,8 +22,7 @@ public abstract class BaseRecordsFile {
 
 	// The total length of one index entry - the key length plus the record
 	// header length.
-	protected static final int INDEX_ENTRY_LENGTH = MAX_KEY_LENGTH
-	      + RECORD_HEADER_LENGTH;
+	protected static final int INDEX_ENTRY_LENGTH = MAX_KEY_LENGTH + RECORD_HEADER_LENGTH;
 
 	// File pointer to the num records header.
 	protected static final long NUM_RECORDS_HEADER_LOCATION = 0;
@@ -35,15 +34,15 @@ public abstract class BaseRecordsFile {
 	 * Creates a new database file, initializing the appropriate headers. Enough
 	 * space is allocated in the index for the specified initial size.
 	 */
-	protected BaseRecordsFile( String dbPath, int initialSize )
-	      throws IOException, RecordsFileException {
+	protected BaseRecordsFile( String dbPath, int initialSize ) throws IOException,
+	      RecordsFileException {
 		File f = new File( dbPath );
 		if( f.exists() ) {
 			throw new RecordsFileException( "Database already exits: " + dbPath );
 		}
 		file = new RandomAccessFile( f, "rw" );
 		dataStartPtr = indexPositionToKeyFp( initialSize ); // Record Data Region
-																			 // starts were the
+		                                                    // starts were the
 		setFileLength( dataStartPtr ); // (i+1)th index entry would start.
 		writeNumRecordsHeader( 0 );
 		writeDataStartPtrHeader( dataStartPtr );
@@ -54,8 +53,8 @@ public abstract class BaseRecordsFile {
 	 * accessFlags parameter can be "r" or "rw" -- as defined in
 	 * RandomAccessFile.
 	 */
-	protected BaseRecordsFile( String dbPath, String accessFlags )
-	      throws IOException, RecordsFileException {
+	protected BaseRecordsFile( String dbPath, String accessFlags ) throws IOException,
+	      RecordsFileException {
 		File f = new File( dbPath );
 		if( !f.exists() ) {
 			throw new RecordsFileException( "Database not found: " + dbPath );
@@ -67,7 +66,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Returns an Enumeration of the keys of all records in the database.
 	 */
-	public abstract Enumeration enumerateKeys();
+	public abstract Enumeration<String> enumerateKeys();
 
 	/**
 	 * Returns the number or records in the database.
@@ -82,15 +81,13 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Maps a key to a record header.
 	 */
-	protected abstract RecordHeader keyToRecordHeader( String key )
-	      throws RecordsFileException;
+	protected abstract RecordHeader keyToRecordHeader( String key ) throws RecordsFileException;
 
 	/**
 	 * Locates space for a new record of dataLength size and initializes a
 	 * RecordHeader.
 	 */
-	protected abstract RecordHeader allocateRecord( String key, int dataLength )
-	      throws RecordsFileException, IOException;
+	protected abstract RecordHeader allocateRecord( String key, int dataLength ) throws RecordsFileException, IOException;
 
 	/**
 	 * Returns the record to which the target file pointer belongs - meaning the
@@ -98,8 +95,7 @@ public abstract class BaseRecordsFile {
 	 * RecordHeader which is returned. Returns null if the location is not part
 	 * of a record. (O(n) mem accesses)
 	 */
-	protected abstract RecordHeader getRecordAt( long targetFp )
-	      throws RecordsFileException;
+	protected abstract RecordHeader getRecordAt( long targetFp ) throws RecordsFileException;
 
 	protected long getFileLength() throws IOException {
 		return file.length();
@@ -136,8 +132,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Writes the data start pointer header to the file.
 	 */
-	protected void writeDataStartPtrHeader( long dataStartPtr )
-	      throws IOException {
+	protected void writeDataStartPtrHeader( long dataStartPtr ) throws IOException {
 		file.seek( DATA_START_HEADER_LOCATION );
 		file.writeLong( dataStartPtr );
 	}
@@ -177,8 +172,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Writes the ith record header to the index.
 	 */
-	protected void writeRecordHeaderToIndex( RecordHeader header )
-	      throws IOException {
+	protected void writeRecordHeaderToIndex( RecordHeader header ) throws IOException {
 		file.seek( indexPositionToRecordHeaderFp( header.indexPosition ) );
 		header.write( file );
 	}
@@ -187,15 +181,14 @@ public abstract class BaseRecordsFile {
 	 * Appends an entry to end of index. Assumes that insureIndexSpace() has
 	 * already been called.
 	 */
-	protected void addEntryToIndex( String key, RecordHeader newRecord,
-	      int currentNumRecords ) throws IOException, RecordsFileException {
-		DbByteArrayOutputStream temp = new DbByteArrayOutputStream(
-		      MAX_KEY_LENGTH );
-		( new DataOutputStream( temp ) ).writeUTF( key );
+	protected void addEntryToIndex( String key, RecordHeader newRecord, int currentNumRecords ) throws IOException, RecordsFileException {
+		DbByteArrayOutputStream temp = new DbByteArrayOutputStream( MAX_KEY_LENGTH );
+		DataOutputStream dataOutputStream = new DataOutputStream( temp );
+		dataOutputStream.writeUTF( key );
+		dataOutputStream.close();
 		if( temp.size() > MAX_KEY_LENGTH ) {
-			throw new RecordsFileException(
-			      "Key is larger than permitted size of " + MAX_KEY_LENGTH
-			            + " bytes" );
+			throw new RecordsFileException( "Key is larger than permitted size of "
+			      + MAX_KEY_LENGTH + " bytes" );
 		}
 		file.seek( indexPositionToKeyFp( currentNumRecords ) );
 		temp.writeTo( file );
@@ -226,8 +219,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Adds the given record to the database.
 	 */
-	public synchronized void insertRecord( RecordWriter rw )
-	      throws RecordsFileException, IOException {
+	public synchronized void insertRecord( RecordWriter rw ) throws RecordsFileException, IOException {
 		String key = rw.getKey();
 		if( recordExists( key ) ) {
 			throw new RecordsFileException( "Key exists: " + key );
@@ -243,8 +235,7 @@ public abstract class BaseRecordsFile {
 	 * record, then the update is handled by deleting the old record and adding
 	 * the new.
 	 */
-	public synchronized void updateRecord( RecordWriter rw )
-	      throws RecordsFileException, IOException {
+	public synchronized void updateRecord( RecordWriter rw ) throws RecordsFileException, IOException {
 		RecordHeader header = keyToRecordHeader( rw.getKey() );
 		if( rw.getDataLength() > header.dataCapacity ) {
 			deleteRecord( rw.getKey() );
@@ -259,8 +250,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Reads a record.
 	 */
-	public synchronized RecordReader readRecord( String key )
-	      throws RecordsFileException, IOException {
+	public synchronized RecordReader readRecord( String key ) throws RecordsFileException, IOException {
 		byte[] data = readRecordData( key );
 		return new RecordReader( key, data );
 	}
@@ -268,8 +258,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Reads the data for the record with the given key.
 	 */
-	protected byte[] readRecordData( String key ) throws IOException,
-	      RecordsFileException {
+	protected byte[] readRecordData( String key ) throws IOException, RecordsFileException {
 		return readRecordData( keyToRecordHeader( key ) );
 	}
 
@@ -288,8 +277,7 @@ public abstract class BaseRecordsFile {
 	 * if the new data does not fit in the space allocated to the record. The
 	 * header's data count is updated, but not written to the file.
 	 */
-	protected void writeRecordData( RecordHeader header, RecordWriter rw )
-	      throws IOException, RecordsFileException {
+	protected void writeRecordData( RecordHeader header, RecordWriter rw ) throws IOException, RecordsFileException {
 		if( rw.getDataLength() > header.dataCapacity ) {
 			throw new RecordsFileException( "Record data does not fit" );
 		}
@@ -303,8 +291,7 @@ public abstract class BaseRecordsFile {
 	 * if the new data does not fit in the space allocated to the record. The
 	 * header's data count is updated, but not written to the file.
 	 */
-	protected void writeRecordData( RecordHeader header, byte[] data )
-	      throws IOException, RecordsFileException {
+	protected void writeRecordData( RecordHeader header, byte[] data ) throws IOException, RecordsFileException {
 		if( data.length > header.dataCapacity ) {
 			throw new RecordsFileException( "Record data does not fit" );
 		}
@@ -316,8 +303,7 @@ public abstract class BaseRecordsFile {
 	/**
 	 * Deletes a record.
 	 */
-	public synchronized void deleteRecord( String key )
-	      throws RecordsFileException, IOException {
+	public synchronized void deleteRecord( String key ) throws RecordsFileException, IOException {
 		RecordHeader delRec = keyToRecordHeader( key );
 		int currentNumRecords = getNumRecords();
 		if( getFileLength() == delRec.dataPointer + delRec.dataCapacity ) {
@@ -349,8 +335,7 @@ public abstract class BaseRecordsFile {
 
 	// Checks to see if there is space for and additional index entry. If
 	// not, space is created by moving records to the end of the file.
-	protected void insureIndexSpace( int requiredNumRecords )
-	      throws RecordsFileException, IOException {
+	protected void insureIndexSpace( int requiredNumRecords ) throws RecordsFileException, IOException {
 		int currentNumRecords = getNumRecords();
 		long endIndexPtr = indexPositionToKeyFp( requiredNumRecords );
 		if( endIndexPtr > getFileLength() && currentNumRecords == 0 ) {

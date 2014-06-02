@@ -11,7 +11,7 @@ public class RecordsFile extends BaseRecordsFile {
 	 * index is cached in memory. The hashtable maps a key of type String to a
 	 * RecordHeader.
 	 */
-	protected Hashtable memIndex;
+	protected Hashtable<String, RecordHeader> memIndex;
 
 	/**
 	 * Creates a new database file. The initialSize parameter determines the
@@ -21,7 +21,7 @@ public class RecordsFile extends BaseRecordsFile {
 	public RecordsFile( String dbPath, int initialSize ) throws IOException,
 	      RecordsFileException {
 		super( dbPath, initialSize );
-		memIndex = new Hashtable( initialSize );
+		memIndex = new Hashtable<String, RecordHeader>( initialSize );
 	}
 
 	/**
@@ -31,7 +31,7 @@ public class RecordsFile extends BaseRecordsFile {
 	      RecordsFileException {
 		super( dbPath, accessFlags );
 		int numRecords = readNumRecordsHeader();
-		memIndex = new Hashtable( numRecords );
+		memIndex = new Hashtable<String, RecordHeader>( numRecords );
 		for( int i = 0; i < numRecords; i++ ) {
 			String key = readKeyFromIndex( i );
 			RecordHeader header = readRecordHeaderFromIndex( i );
@@ -43,7 +43,7 @@ public class RecordsFile extends BaseRecordsFile {
 	/**
 	 * Returns an enumeration of all the keys in the database.
 	 */
-	public synchronized Enumeration enumerateKeys() {
+	public synchronized Enumeration<String> enumerateKeys() {
 		return memIndex.keys();
 	}
 
@@ -64,8 +64,7 @@ public class RecordsFile extends BaseRecordsFile {
 	/**
 	 * Maps a key to a record header by looking it up in the in-memory index.
 	 */
-	protected RecordHeader keyToRecordHeader( String key )
-	      throws RecordsFileException {
+	protected RecordHeader keyToRecordHeader( String key ) throws RecordsFileException {
 		RecordHeader h = (RecordHeader) memIndex.get( key );
 		if( h == null ) {
 			throw new RecordsFileException( "Key not found: " + key );
@@ -77,11 +76,10 @@ public class RecordsFile extends BaseRecordsFile {
 	 * This method searches the file for free space and then returns a
 	 * RecordHeader which uses the space. (O(n) memory accesses)
 	 */
-	protected RecordHeader allocateRecord( String key, int dataLength )
-	      throws RecordsFileException, IOException {
+	protected RecordHeader allocateRecord( String key, int dataLength ) throws RecordsFileException, IOException {
 		// search for empty space
 		RecordHeader newRecord = null;
-		Enumeration e = memIndex.elements();
+		Enumeration<RecordHeader> e = memIndex.elements();
 		while( e.hasMoreElements() ) {
 			RecordHeader next = (RecordHeader) e.nextElement();
 			if( dataLength <= next.getFreeSpace() ) {
@@ -105,9 +103,8 @@ public class RecordsFile extends BaseRecordsFile {
 	 * RecordHeader which is returned. Returns null if the location is not part
 	 * of a record. (O(n) mem accesses)
 	 */
-	protected RecordHeader getRecordAt( long targetFp )
-	      throws RecordsFileException {
-		Enumeration e = memIndex.elements();
+	protected RecordHeader getRecordAt( long targetFp ) throws RecordsFileException {
+		Enumeration<RecordHeader> e = memIndex.elements();
 		while( e.hasMoreElements() ) {
 			RecordHeader next = (RecordHeader) e.nextElement();
 			if( targetFp >= next.dataPointer
@@ -135,8 +132,7 @@ public class RecordsFile extends BaseRecordsFile {
 	 * Adds the new record to the in-memory index and calls the super class add
 	 * the index entry to the file.
 	 */
-	protected void addEntryToIndex( String key, RecordHeader newRecord,
-	      int currentNumRecords ) throws IOException, RecordsFileException {
+	protected void addEntryToIndex( String key, RecordHeader newRecord, int currentNumRecords ) throws IOException, RecordsFileException {
 		super.addEntryToIndex( key, newRecord, currentNumRecords );
 		memIndex.put( key, newRecord );
 	}
@@ -148,7 +144,7 @@ public class RecordsFile extends BaseRecordsFile {
 	protected void deleteEntryFromIndex( String key, RecordHeader header,
 	      int currentNumRecords ) throws IOException, RecordsFileException {
 		super.deleteEntryFromIndex( key, header, currentNumRecords );
-		RecordHeader deleted = (RecordHeader) memIndex.remove( key );
+		memIndex.remove( key );
 	}
 
 }
