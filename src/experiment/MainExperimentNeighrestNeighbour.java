@@ -1,9 +1,7 @@
 package experiment;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +26,7 @@ public class MainExperimentNeighrestNeighbour {
 		PrintWriter writer;
 		double c = 1.0;
 		List<Point> q;
+		int inputSize = 7;
 
 		try {
 			// MeanKDTree con puntos aleatorios
@@ -43,7 +42,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateRandomPoints( c, size );
 					experimentTree = new MeanKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, size );
+					q = generateRandomPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -53,7 +52,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, size );
+					q = generateLowDiscrepancyPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -62,9 +61,12 @@ public class MainExperimentNeighrestNeighbour {
 					elapsedTime = stopTime - startTime;
 					writer.println( "LowDiscrepancyPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
+
+					System.out.println( "Listo 1 2^" + size );
 				}
 				writer.close();
 			}
+			System.out.println( "Listo 1 Todo" );
 
 			// MeanKDTree con puntos de baja discrepancia
 			{
@@ -79,7 +81,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
 					experimentTree = new MeanKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, size );
+					q = generateRandomPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -89,7 +91,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, size );
+					q = generateLowDiscrepancyPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -98,9 +100,11 @@ public class MainExperimentNeighrestNeighbour {
 					elapsedTime = stopTime - startTime;
 					writer.println( "LowDiscrepancyPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
+					System.out.println( "Listo 2 2^" + size );
 				}
 				writer.close();
 			}
+			System.out.println( "Listo 2 Todo" );
 
 			// MedianKDTree con puntos aleatorios
 			{
@@ -115,7 +119,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateRandomPoints( c, size );
 					experimentTree = new MedianKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, size );
+					q = generateRandomPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -125,7 +129,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, size );
+					q = generateLowDiscrepancyPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -134,9 +138,12 @@ public class MainExperimentNeighrestNeighbour {
 					elapsedTime = stopTime - startTime;
 					writer.println( "LowDiscrepancyPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
+
+					System.out.println( "Listo 3 2^" + size );
 				}
 				writer.close();
 			}
+			System.out.println( "Listo 3 Todo" );
 
 			// MedianKDTree con puntos de baja discrepancia
 			{
@@ -151,7 +158,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
 					experimentTree = new MedianKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, size );
+					q = generateRandomPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -161,7 +168,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, size );
+					q = generateLowDiscrepancyPoints( c, inputSize );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -170,30 +177,17 @@ public class MainExperimentNeighrestNeighbour {
 					elapsedTime = stopTime - startTime;
 					writer.println( "LowDiscrepancyPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
+
+					System.out.println( "Listo 4 2^" + size );
 				}
 				writer.close();
 			}
+			System.out.println( "Listo 4 Todo" );
 
 		}
 		catch( FileNotFoundException e ) {
 			e.printStackTrace();
 		}
-		catch( IOException e ) {
-			e.printStackTrace();
-		}
-	}
-
-	public static int sizeof( Object obj ) throws IOException {
-
-		ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-		      byteOutputStream );
-
-		objectOutputStream.writeObject( obj );
-		objectOutputStream.flush();
-		objectOutputStream.close();
-
-		return byteOutputStream.toByteArray().length;
 	}
 
 	/**
