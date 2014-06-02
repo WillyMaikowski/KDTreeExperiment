@@ -185,7 +185,8 @@ public class MainExperiment {
 					      + pointName );
 				}
 				writer.close();
-			}
+			}		
+			
 		}
 		catch( FileNotFoundException e ) {
 			e.printStackTrace();
