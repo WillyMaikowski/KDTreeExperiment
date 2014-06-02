@@ -9,8 +9,6 @@ public class MeanXAxis extends AbstractAxis {
 	 * 
 	 */
    private static final long serialVersionUID = -6008044712895280733L;
-	private double coord;
-
 	public Axis getPerpendicular() {
 		return new MeanYAxis();
 	}

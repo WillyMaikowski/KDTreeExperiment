@@ -10,5 +10,4 @@ public interface Axis extends java.io.Serializable{
 
 	public double compare( Point p1 );
 
-	public double getCoord();
 }

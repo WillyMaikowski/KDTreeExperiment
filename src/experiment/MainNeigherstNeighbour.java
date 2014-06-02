@@ -11,7 +11,7 @@ import KDTree.MeanKDTreeNode;
 import KDTree.MedianKDTreeNode;
 import KDTree.Point;
 
-public class MainExperimentNeighrestNeighbour {
+public class MainNeigherstNeighbour {
 
 	public static void main( String[] args ) {
 
@@ -26,7 +26,7 @@ public class MainExperimentNeighrestNeighbour {
 		PrintWriter writer;
 		double c = 1.0;
 		List<Point> q;
-		int inputSize = 7;
+		//int inputSize = 15;
 
 		try {
 			// MeanKDTree con puntos aleatorios
@@ -42,7 +42,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateRandomPoints( c, size );
 					experimentTree = new MeanKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, inputSize );
+					q = generateRandomPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -52,7 +52,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, inputSize );
+					q = generateLowDiscrepancyPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -81,7 +81,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
 					experimentTree = new MeanKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, inputSize );
+					q = generateRandomPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -91,7 +91,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, inputSize );
+					q = generateLowDiscrepancyPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -119,7 +119,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateRandomPoints( c, size );
 					experimentTree = new MedianKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, inputSize );
+					q = generateRandomPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -129,7 +129,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, inputSize );
+					q = generateLowDiscrepancyPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -158,7 +158,7 @@ public class MainExperimentNeighrestNeighbour {
 					List<Point> listofPoints = generateLowDiscrepancyPoints( c, size );
 					experimentTree = new MedianKDTreeNode( listofPoints );
 
-					q = generateRandomPoints( c, inputSize );
+					q = generateRandomPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );
@@ -168,7 +168,7 @@ public class MainExperimentNeighrestNeighbour {
 					writer.println( "RandomPoints \t" + size + "\t"
 					      + Math.pow( 2, size ) + "\t" + elapsedTime );
 
-					q = generateLowDiscrepancyPoints( c, inputSize );
+					q = generateLowDiscrepancyPoints( c, size );
 					startTime = System.currentTimeMillis();
 					for( Point p : q ) {
 						experimentTree.VecinoMasCercano( p );

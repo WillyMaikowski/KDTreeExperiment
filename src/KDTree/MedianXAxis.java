@@ -9,7 +9,6 @@ public class MedianXAxis extends AbstractAxis {
 	 * 
 	 */
    private static final long serialVersionUID = 1382580215534201839L;
-	private double coord;
 
 	public Axis getPerpendicular() {
 		return new MedianYAxis();

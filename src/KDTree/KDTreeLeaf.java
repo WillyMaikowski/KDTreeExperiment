@@ -8,7 +8,7 @@ public class KDTreeLeaf implements KDTree {
 	/**
 	 * 
 	 */
-   private static final long serialVersionUID = -3966791934614508907L;
+	private static final long serialVersionUID = -3966791934614508907L;
 	private Point value;
 
 	public KDTreeLeaf( Point p ) {
@@ -34,4 +34,11 @@ public class KDTreeLeaf implements KDTree {
 	public Point VecinoMasCercano( KDTree T, Point q ) {
 		return T.VecinoMasCercano( q );
 	}
+
+	public Point VecinoMasCercano( Point q, Point mejorPrevio,
+	      double distMejorPrevio ) {
+
+		return this.VecinoMasCercano( q );
+	}
+
 }

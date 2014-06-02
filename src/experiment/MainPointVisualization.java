@@ -5,9 +5,6 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import draw.DrawablePoint;
-import KDTree.KDTree;
-import KDTree.MeanKDTreeNode;
-import KDTree.MedianKDTreeNode;
 import KDTree.Point;
 
 public class MainPointVisualization {

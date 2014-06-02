@@ -8,9 +8,6 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JFrame;
-
-import draw.DrawablePoint;
 import KDTree.KDTree;
 import KDTree.MeanKDTreeNode;
 import KDTree.MedianKDTreeNode;
@@ -18,53 +15,7 @@ import KDTree.Point;
 
 public class MainExperiment {
 
-	/*
-	 * public static void main( String[] args ) {
-	 * 
-	 * int c = 1; int n = 20; int x = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) )
-	 * * 10; int y = (int) ( c * Math.sqrt( Math.pow( 2, n ) ) ) * 10;
-	 * 
-	 * List<Point> listofPoints = generateRandomPoints( c, n );
-	 * 
-	 * JFrame frame = new JFrame( "Points" ); frame.setDefaultCloseOperation(
-	 * JFrame.EXIT_ON_CLOSE ); frame.setSize( x, y );
-	 * 
-	 * frame.add( new DrawablePoint( listofPoints ) );
-	 * 
-	 * frame.setVisible( true ); }
-	 */
-
 	public static void main( String[] args ) {
-		/*
-		 * int c = 1; int n = 20; List<Point> listofPoints = generateRandomPoints(
-		 * c, n ); List<Point> listofPoints2 = listofPoints;
-		 * 
-		 * long startTime = System.currentTimeMillis(); KDTree tree = new
-		 * MeanKDTreeNode( listofPoints ); long stopTime =
-		 * System.currentTimeMillis(); long elapsedTime = stopTime - startTime;
-		 * System.out.println( "Tiempo crear mean= " + elapsedTime );
-		 * 
-		 * startTime = System.currentTimeMillis(); KDTree tree2 = new
-		 * MedianKDTreeNode( listofPoints2 ); stopTime =
-		 * System.currentTimeMillis(); elapsedTime = stopTime - startTime;
-		 * System.out.println( "Tiempo crear median= " + elapsedTime );
-		 * 
-		 * System.out.println( "Altura mean= " + tree.height() );
-		 * System.out.println( "Altura median= " + tree2.height() );
-		 * 
-		 * startTime = System.currentTimeMillis(); System.out.println(
-		 * tree.VecinoMasCercano( listofPoints.get( listofPoints.size() -1 ) ) );
-		 * stopTime = System.currentTimeMillis(); elapsedTime = stopTime -
-		 * startTime; System.out.println( "Tiempo consulta mean= " + elapsedTime
-		 * );
-		 * 
-		 * startTime = System.currentTimeMillis(); System.out.println(
-		 * tree2.VecinoMasCercano( listofPoints.get( listofPoints.size() -1 ) ) );
-		 * stopTime = System.currentTimeMillis(); elapsedTime = stopTime -
-		 * startTime; System.out.println( "Tiempo consulta median= " + elapsedTime
-		 * );
-		 */
-
 		int minN = 10;
 		int maxN = 20;
 		KDTree experimentTree;

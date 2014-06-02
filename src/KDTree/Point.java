@@ -31,10 +31,9 @@ public class Point implements  java.io.Serializable{
 		this.y = y;
 	}
 
-	public double distance( Point mejorActual ) {
-
-		return Math.sqrt( Math.pow( this.getX() + mejorActual.getX(), 2 )
-		      + Math.pow( this.getY() + mejorActual.getY(), 2 ) );
+	public double distance( Point q ) {
+		return Math.sqrt( Math.pow( this.getX() - q.getX(), 2 )
+		      + Math.pow( this.getY() - q.getY(), 2 ) );
 	}
 
 	public String toString() {

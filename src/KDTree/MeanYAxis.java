@@ -9,8 +9,7 @@ public class MeanYAxis extends AbstractAxis {
 	 * 
 	 */
    private static final long serialVersionUID = 6554929641089841312L;
-	private double coord;
-
+	
 	public Axis getPerpendicular() {
 		return new MeanXAxis();
 	}
