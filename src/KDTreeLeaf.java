@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
+@SuppressWarnings( "serial" )
 public class KDTreeLeaf implements KDTree {
 	private Point value;
 

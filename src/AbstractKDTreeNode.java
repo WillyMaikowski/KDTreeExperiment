@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.util.ArrayList;
 
+@SuppressWarnings( "serial" )
 public abstract class AbstractKDTreeNode implements KDTree {
 
 	protected Axis axis;
