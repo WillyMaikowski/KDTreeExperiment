@@ -19,21 +19,12 @@ public abstract class AbstractKDTreeNode implements KDTree {
 		this.axis = axis;
 
 		this.axis.setL( listofPoints );
-		ArrayList<Point> p1 = new ArrayList<Point>();/* contiene los puntos */
-		ArrayList<Point> p2 = new ArrayList<Point>();/*
-																	 * contiene los puntos
-																	 * mayores al axis
-																	 */
-		for( Point p : listofPoints ) {
+		ArrayList<Point> p1 = new ArrayList<Point>();
+		ArrayList<Point> p2 = new ArrayList<Point>();
+		for( Point p : listofPoints )
+			if( this.axis.compare( p ) >= 0 ) p1.add( p );
+			else p2.add( p );
 
-			if( this.axis.compare( p ) >= 0 ) {// el axis es mayor que el punto =>
-				                                // punto va al lado izquierdo
-				p1.add( p );
-			}
-			else {
-				p2.add( p );
-			}
-		}
 		listofPoints = null;
 		Axis nAxis = axis.getPerpendicular();
 
@@ -63,17 +54,17 @@ public abstract class AbstractKDTreeNode implements KDTree {
 		Point mejorActual;
 		double distActual;
 		if( this.axis.compare( q ) < 0 ) {// el eje es menor al punto => buscar a
-													 // la derecha
+			                               // la derecha
 
 			mejorActual = this.right.VecinoMasCercano( q, mejorPrevio,
 			      distMejorPrevio );
 			distActual = q.distance( mejorActual );
-			
-			if( distActual > distMejorPrevio ){
+
+			if( distActual > distMejorPrevio ) {
 				mejorActual = mejorPrevio;
 				distActual = distMejorPrevio;
 			}
-			
+
 			if( Math.abs( this.axis.compare( q ) ) < distActual ) {
 				Point mejorActualIzq = this.left.VecinoMasCercano( q );
 				double distActualIzq = q.distance( mejorActualIzq );
@@ -87,8 +78,8 @@ public abstract class AbstractKDTreeNode implements KDTree {
 		else {
 			mejorActual = this.left.VecinoMasCercano( q );
 			distActual = q.distance( mejorActual );
-			
-			if( distActual > distMejorPrevio ){
+
+			if( distActual > distMejorPrevio ) {
 				mejorActual = mejorPrevio;
 				distActual = distMejorPrevio;
 			}

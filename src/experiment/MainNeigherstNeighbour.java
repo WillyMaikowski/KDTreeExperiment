@@ -212,7 +212,7 @@ public class MainNeigherstNeighbour {
 	public static List<Point> generateLowDiscrepancyPoints( double c, int n ) {
 		List<Point> result = new ArrayList<Point>();
 		double numPoints = Math.pow( 2, n );
-		double delta = Math.pow( c, 2 );
+		double delta = c;
 
 		for( double i = 0; i < c * Math.sqrt( numPoints ); i = i + delta ) {
 			for( double j = 0; j < c * Math.sqrt( numPoints ); j = j + delta ) {

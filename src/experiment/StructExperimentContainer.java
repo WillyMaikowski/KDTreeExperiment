@@ -47,7 +47,6 @@ public class StructExperimentContainer {
 
 	public double getTimeStd() {
 		if( n == 0 ) return 0;
-
 		double avg = this.getAverageTime();
 		double var = 0;
 
@@ -62,7 +61,6 @@ public class StructExperimentContainer {
 
 		double avg = this.getAverageHeight();
 		double var = 0;
-
 		for( int height : this.heightContainer ) {
 			var += Math.pow( height - avg, 2 );
 		}
@@ -71,10 +69,8 @@ public class StructExperimentContainer {
 
 	public double getsizeStd() {
 		if( n == 0 ) return 0;
-
 		double avg = this.getAverageSize();
 		double var = 0;
-
 		for( int size : this.sizeContainer ) {
 			var += Math.pow( size - avg, 2 );
 		}
@@ -97,10 +93,8 @@ public class StructExperimentContainer {
 	}
 
 	public boolean finished() {
-		int mayorq = 20;
-		// if( this.size > Math.pow( 2, 16 ) ) mayorq = 1;
+		int mayorq = 30;
 		return this.n >= mayorq;
-		      //&& this.getAverageTime() * 0.05 >= this.getTimeStd();
 	}
 
 	/**
@@ -109,6 +103,7 @@ public class StructExperimentContainer {
 	 * 
 	 * @return
 	 */
+	//
 	public String getResult() {
 		return "[" + this.kdTreeName + "\t" + this.pointType + "\t" + this.size
 		      + "\t" + this.n + "\t" + this.getAverageHeight() + "\t"

@@ -136,8 +136,8 @@ public class MainExperiment {
 					      + pointName );
 				}
 				writer.close();
-			}		
-			
+			}
+
 		}
 		catch( FileNotFoundException e ) {
 			e.printStackTrace();
@@ -169,20 +169,17 @@ public class MainExperiment {
 	public static List<Point> generateRandomPoints( double c, int n ) {
 		List<Point> result = new ArrayList<Point>();
 		double numPoints = Math.pow( 2, n );
-
 		for( int i = 1; i <= numPoints; i++ ) {
-			result.add( generateRandomPoint( 0, 0,
-			      (int) ( c * Math.sqrt( numPoints ) ),
-			      (int) ( c * Math.sqrt( numPoints ) ) ) );
+			result.add( generateRandomPoint( 0, 0, ( c * Math.sqrt( numPoints ) ),
+			      ( c * Math.sqrt( numPoints ) ) ) );
 		}
-
 		return result;
 	}
 
 	public static List<Point> generateLowDiscrepancyPoints( double c, int n ) {
 		List<Point> result = new ArrayList<Point>();
 		double numPoints = Math.pow( 2, n );
-		double delta = Math.pow( c, 2 );
+		double delta = c;
 
 		for( double i = 0; i < c * Math.sqrt( numPoints ); i = i + delta ) {
 			for( double j = 0; j < c * Math.sqrt( numPoints ); j = j + delta ) {
@@ -196,7 +193,6 @@ public class MainExperiment {
 	public static Point generateRandomPoint( double x0, double y0, double x1,
 	      double y1 ) {
 		Point result = new Point( random( x0, x1 ), random( y0, y1 ) );
-
 		return result;
 	}
 
