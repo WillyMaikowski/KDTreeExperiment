@@ -41,18 +41,16 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 
 		// Tenemos que cambiar esta parte para suponer que nuestra
 		// memoria principal no da mas alla que los puntos
+		
 		this.axis.setL( points );
 		List<Point> p1 = new ArrayList<Point>();
 		List<Point> p2 = new ArrayList<Point>();
 		for( Point p : points ) {
-			if( this.axis.compare( p ) <= 0 ) {
-				p1.add( p );
-			}
-			else {
-				p2.add( p );
-			}
+			if( this.axis.compare( p ) <= 0 ) p1.add( p );
+			else p2.add( p );
+
 		}
-		
+
 		points = null;
 		Axis nAxis = axis.getPerpendicular();
 
