@@ -1,6 +1,8 @@
-import java.awt.Point;
+package KDTree;
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import recordfile.RecordReader;
@@ -12,14 +14,15 @@ import recordfile.RecordsFileException;
 public abstract class AbstractSecMemKDTree implements KDTree {
 
 	String recordsFile;
-	protected transient Axis axis;
+	protected Axis axis;
 	protected String keyRight;
 	protected String keyLeft;
 
-	public AbstractSecMemKDTree( ArrayList<Point> points, Axis axis, String recordsFile ) throws IOException, RecordsFileException {
+	public AbstractSecMemKDTree( List<Point> points, Axis axis, String recordsFile ) throws IOException,
+	      RecordsFileException {
 		this.recordsFile = recordsFile;
 		this.axis = axis;
-		
+
 		RecordsFile rf = null;
 		try {
 			rf = new RecordsFile( recordsFile, "rw" );
@@ -29,18 +32,18 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 				rf = new RecordsFile( recordsFile, 64 );
 			}
 			catch( RecordsFileException ex ) {
-				throw ex; 
+				throw ex;
 			}
 		}
 		finally {
 			if( rf == null ) throw new RecordsFileException( "Problems to open/create the RecordsFile" );
 		}
-		
+
 		// Tenemos que cambiar esta parte para suponer que nuestra
 		// memoria principal no da mas alla que los puntos
 		this.axis.setL( points );
-		ArrayList<Point> p1 = new ArrayList<Point>();
-		ArrayList<Point> p2 = new ArrayList<Point>();
+		List<Point> p1 = new ArrayList<Point>();
+		List<Point> p2 = new ArrayList<Point>();
 		for( Point p : points ) {
 			if( this.axis.compare( p ) <= 0 ) {
 				p1.add( p );
@@ -49,7 +52,8 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 				p2.add( p );
 			}
 		}
-
+		
+		points = null;
 		Axis nAxis = axis.getPerpendicular();
 
 		String uniqueIdLeft = UUID.randomUUID().toString();
@@ -65,21 +69,15 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 		else if( p2.size() > 1 ) rwRight.writeObject( this.createNode( p2, nAxis ) );
 		rf.updateRecord( rwRight );
 		this.keyRight = uniqueIdRight;
-		
+
 		rf.close();
 	}
 
-	public Point VecinoMasCercano( KDTree T, Point q ) {
-		return T.VecinoMasCercano( q );
-	}
-
-	public Point VecinoMasCercano( Point q ) {
-		Point mejorActual;
-		double distActual;
+	public int height() {
 		KDTree right = null;
 		KDTree left = null;
 		RecordsFile rf = null;
-		
+
 		try {
 			rf = new RecordsFile( this.recordsFile, "r" );
 			RecordReader rrRight = rf.readRecord( keyRight );
@@ -88,13 +86,48 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 			left = (KDTree) rrLeft.readObject();
 			rf.close();
 		}
-      catch( RecordsFileException|IOException|ClassNotFoundException e ) {
-	      e.printStackTrace();
-      }
-		
-		if( this.axis.compare( q ) > 0 ) {
-			mejorActual = right.VecinoMasCercano( q );
+		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+		return Math.max( left.height(), right.height() ) + 1;
+	}
+
+	public Point VecinoMasCercano( KDTree T, Point q ) {
+		return T.VecinoMasCercano( q );
+	}
+
+	public Point VecinoMasCercano( Point q ) {
+		return VecinoMasCercano( q, new Point( Double.MAX_VALUE, Double.MAX_VALUE ), Double.MAX_VALUE );
+	}
+
+	public Point VecinoMasCercano( Point q, Point mejorPrevio, double distMejorPrevio ) {
+		Point mejorActual;
+		double distActual;
+		KDTree right = null;
+		KDTree left = null;
+		RecordsFile rf = null;
+
+		try {
+			rf = new RecordsFile( this.recordsFile, "r" );
+			RecordReader rrRight = rf.readRecord( keyRight );
+			RecordReader rrLeft = rf.readRecord( keyLeft );
+			right = (KDTree) rrRight.readObject();
+			left = (KDTree) rrLeft.readObject();
+			rf.close();
+		}
+		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+
+		if( this.axis.compare( q ) < 0 ) {
+
+			mejorActual = right.VecinoMasCercano( q, mejorPrevio, distMejorPrevio );
 			distActual = q.distance( mejorActual );
+
+			if( distActual > distMejorPrevio ) {
+				mejorActual = mejorPrevio;
+				distActual = distMejorPrevio;
+			}
 
 			if( Math.abs( this.axis.compare( q ) ) < distActual ) {
 				Point mejorActualIzq = left.VecinoMasCercano( q );
@@ -109,6 +142,11 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 		else {
 			mejorActual = left.VecinoMasCercano( q );
 			distActual = q.distance( mejorActual );
+
+			if( distActual > distMejorPrevio ) {
+				mejorActual = mejorPrevio;
+				distActual = distMejorPrevio;
+			}
 
 			if( Math.abs( this.axis.compare( q ) ) < distActual ) {
 				Point mejorActualDer = right.VecinoMasCercano( q );

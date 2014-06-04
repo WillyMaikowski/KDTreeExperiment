@@ -4,11 +4,9 @@ import KDTree.Point;
 
 import java.util.List;
 
+@SuppressWarnings( "serial" )
 public class KDTreeLeaf implements KDTree {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -3966791934614508907L;
+
 	private Point value;
 
 	public KDTreeLeaf( Point p ) {

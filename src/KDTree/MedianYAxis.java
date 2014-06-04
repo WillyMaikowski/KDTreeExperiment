@@ -1,15 +1,11 @@
 package KDTree;
 
 import KDTree.Point;
+
 import java.util.List;
 
+@SuppressWarnings( "serial" )
 public class MedianYAxis extends AbstractAxis {
-
-	/**
-	 * 
-	 */
-   private static final long serialVersionUID = -7625415684487690895L;
-	private double coord;
 
 	public Axis getPerpendicular() {
 		return new MedianXAxis();

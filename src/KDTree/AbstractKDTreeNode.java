@@ -1,15 +1,10 @@
 package KDTree;
 
-import KDTree.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings( "serial" )
 public abstract class AbstractKDTreeNode implements KDTree {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -2854002172086398693L;
 
 	protected Axis axis;
 	protected KDTree right;
@@ -44,20 +39,17 @@ public abstract class AbstractKDTreeNode implements KDTree {
 	}
 
 	public Point VecinoMasCercano( Point q ) {
-		return VecinoMasCercano( q,
-		      new Point( Double.MAX_VALUE, Double.MAX_VALUE ), Double.MAX_VALUE );
+		return VecinoMasCercano( q, new Point( Double.MAX_VALUE, Double.MAX_VALUE ), Double.MAX_VALUE );
 	}
 
-	public Point VecinoMasCercano( Point q, Point mejorPrevio,
-	      double distMejorPrevio ) {
+	public Point VecinoMasCercano( Point q, Point mejorPrevio, double distMejorPrevio ) {
 
 		Point mejorActual;
 		double distActual;
 		if( this.axis.compare( q ) < 0 ) {// el eje es menor al punto => buscar a
 			                               // la derecha
 
-			mejorActual = this.right.VecinoMasCercano( q, mejorPrevio,
-			      distMejorPrevio );
+			mejorActual = this.right.VecinoMasCercano( q, mejorPrevio, distMejorPrevio );
 			distActual = q.distance( mejorActual );
 
 			if( distActual > distMejorPrevio ) {

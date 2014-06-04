@@ -1,7 +1,6 @@
 package KDTree;
 
 import KDTree.Point;
-
 import java.util.List;
 
 public interface KDTree extends java.io.Serializable {
@@ -9,8 +8,7 @@ public interface KDTree extends java.io.Serializable {
 
 	public Point VecinoMasCercano( Point q );
 
-	public Point VecinoMasCercano( Point q, Point mejorPrevio,
-	      double distMejorPrevio );
+	public Point VecinoMasCercano( Point q, Point mejorPrevio, double distMejorPrevio );
 
 	public KDTree createLeaf( Point q );
 

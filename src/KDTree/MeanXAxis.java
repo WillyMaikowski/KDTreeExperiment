@@ -1,14 +1,12 @@
 package KDTree;
 
 import KDTree.Point;
+
 import java.util.List;
 
+@SuppressWarnings( "serial" )
 public class MeanXAxis extends AbstractAxis {
 
-	/**
-	 * 
-	 */
-   private static final long serialVersionUID = -6008044712895280733L;
 	public Axis getPerpendicular() {
 		return new MeanYAxis();
 	}

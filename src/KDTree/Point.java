@@ -1,11 +1,8 @@
 package KDTree;
 
+@SuppressWarnings( "serial" )
 public class Point implements  java.io.Serializable{
 
-	/**
-	 * 
-	 */
-   private static final long serialVersionUID = -2706181583374875324L;
 	private double x;
 	private double y;
 

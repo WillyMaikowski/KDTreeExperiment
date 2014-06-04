@@ -1,8 +1,8 @@
 package KDTree;
 
+@SuppressWarnings( "serial" )
 public abstract class AbstractAxis implements Axis {
-	
-   private static final long serialVersionUID = -5983350815452628144L;
+
    protected double coord;
 
 	protected int random( int i, int n ) {
