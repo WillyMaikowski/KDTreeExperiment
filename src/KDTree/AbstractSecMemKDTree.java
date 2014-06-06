@@ -67,17 +67,20 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 
 		this.numAccess++;
 		
-		String uniqueIdLeft = UUID.randomUUID().toString();
-		RecordWriter rwLeft = new RecordWriter( uniqueIdLeft );
-		rwLeft.writeObject( left );
-		rf.updateRecord( rwLeft );
-		this.keyLeft = uniqueIdLeft;
-
-		String uniqueIdRight = UUID.randomUUID().toString();
-		RecordWriter rwRight = new RecordWriter( uniqueIdRight );
-		rwLeft.writeObject( right );
-		rf.updateRecord( rwRight );
-		this.keyRight = uniqueIdRight;
+		if( left != null ) {
+			String uniqueIdLeft = UUID.randomUUID().toString().substring( 0, 7 );
+			RecordWriter rwLeft = new RecordWriter( uniqueIdLeft );
+			rwLeft.writeObject( left );
+			rf.insertRecord( rwLeft );
+			this.keyLeft = uniqueIdLeft;
+		}
+		if( right != null ) {
+			String uniqueIdRight = UUID.randomUUID().toString().substring( 0, 7 );
+			RecordWriter rwRight = new RecordWriter( uniqueIdRight );
+			rwRight.writeObject( right );
+			rf.insertRecord( rwRight );
+			this.keyRight = uniqueIdRight;
+		}
 
 		rf.close();
 	}

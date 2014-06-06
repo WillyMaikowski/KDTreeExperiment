@@ -1,9 +1,7 @@
 package experiment;
 
-import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,7 @@ public class MainExperimentSecondayMemory {
 
 	public static void main( String[] args ) {
 		int minN = 10;
-		int maxN = 10;
+		int maxN = 11;
 		KDTree experimentTree;
 		long startTime;
 		long stopTime;

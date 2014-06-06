@@ -23,7 +23,7 @@ public class MeanSecMemKDTreeNode extends AbstractSecMemKDTree {
 		catch( RecordsFileException|IOException e ) {
 			e.printStackTrace();
 		}
-		
+
 		return node;
 	}
 }
