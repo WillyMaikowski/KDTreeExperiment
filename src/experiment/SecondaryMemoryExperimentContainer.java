@@ -45,7 +45,7 @@ public class SecondaryMemoryExperimentContainer extends StructExperimentContaine
 	}
 	
 	public String toString(){
-		return super.toString()+ "\t" + this.getAverageAccess()+"\t"+this.getAccessStd();
+		return super.getResult()+ "\t" + this.getAverageAccess()+"\t"+this.getAccessStd();
 	}
 	
 	
