@@ -100,8 +100,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="secondary.MedianSecMemKDTreeNode" project="KDTreeExperiment" 
-    file="/KDTreeExperiment/src/secondary/MedianSecMemKDTreeNode.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="12" language="java" name="secmemorywilly.MedianSecMemKDTreeNode" project="KDTreeExperiment" 
+    file="/KDTreeExperiment/src/secmemorywilly/MedianSecMemKDTreeNode.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="808" y="490"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -109,8 +109,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="secondary.MeanSecMemKDTreeNode" project="KDTreeExperiment" 
-    file="/KDTreeExperiment/src/secondary/MeanSecMemKDTreeNode.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="13" language="java" name="secmemorywilly.MeanSecMemKDTreeNode" project="KDTreeExperiment" 
+    file="/KDTreeExperiment/src/secmemorywilly/MeanSecMemKDTreeNode.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1108" y="491"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      
@@ -118,8 +118,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="secondary.AbstractSecMemKDTree" project="KDTreeExperiment" 
-    file="/KDTreeExperiment/src/secondary/AbstractSecMemKDTree.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="14" language="java" name="secmemorywilly.AbstractSecMemKDTree" project="KDTreeExperiment" 
+    file="/KDTreeExperiment/src/secmemorywilly/AbstractSecMemKDTree.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="944" y="279"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
       visibility="true">      

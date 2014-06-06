@@ -1,4 +1,4 @@
-package secondary;
+package secmemorywilly;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 		for( Point p : points ) {
 			if( this.axis.compare( p ) <= 0 ) p1.add( p );
 			else p2.add( p );
-
 		}
 
 		points = null;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import recordfile.RecordsFileException;
-import secondary.MeanSecMemKDTreeNode;
+import secmemorywilly.MeanSecMemKDTreeNode;
 import KDTree.KDTree;
 import KDTree.Point;
 
