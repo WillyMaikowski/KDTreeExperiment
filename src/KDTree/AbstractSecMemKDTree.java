@@ -11,9 +11,10 @@ import recordfile.RecordsFile;
 import recordfile.RecordsFileException;
 
 @SuppressWarnings( "serial" )
-public abstract class AbstractSecMemKDTree implements KDTree {
+public abstract class AbstractSecMemKDTree implements SecMemKDTree {
 
 	String recordsFile;
+	protected int numAccess;
 	protected Axis axis;
 	protected String keyRight;
 	protected String keyLeft;
@@ -22,6 +23,7 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 	      RecordsFileException {
 		this.recordsFile = recordsFile;
 		this.axis = axis;
+		this.numAccess = 0;
 
 		RecordsFile rf = null;
 		try {
@@ -39,6 +41,8 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 			if( rf == null ) throw new RecordsFileException( "Problems to open/create the RecordsFile" );
 		}
 
+		this.numAccess++;
+		
 		// Tenemos que cambiar esta parte para suponer que nuestra
 		// memoria principal no da mas alla que los puntos
 		
@@ -72,21 +76,22 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 	}
 
 	public int height() {
-		KDTree right = null;
-		KDTree left = null;
+		SecMemKDTree right = null;
+		SecMemKDTree left = null;
 		RecordsFile rf = null;
 
 		try {
 			rf = new RecordsFile( this.recordsFile, "r" );
 			RecordReader rrRight = rf.readRecord( keyRight );
 			RecordReader rrLeft = rf.readRecord( keyLeft );
-			right = (KDTree) rrRight.readObject();
-			left = (KDTree) rrLeft.readObject();
+			right = (SecMemKDTree) rrRight.readObject();
+			left = (SecMemKDTree) rrLeft.readObject();
 			rf.close();
 		}
 		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
+		this.numAccess++;
 		return Math.max( left.height(), right.height() ) + 1;
 	}
 
@@ -101,22 +106,23 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 	public Point VecinoMasCercano( Point q, Point mejorPrevio, double distMejorPrevio ) {
 		Point mejorActual;
 		double distActual;
-		KDTree right = null;
-		KDTree left = null;
+		SecMemKDTree right = null;
+		SecMemKDTree left = null;
 		RecordsFile rf = null;
 
 		try {
 			rf = new RecordsFile( this.recordsFile, "r" );
 			RecordReader rrRight = rf.readRecord( keyRight );
 			RecordReader rrLeft = rf.readRecord( keyLeft );
-			right = (KDTree) rrRight.readObject();
-			left = (KDTree) rrLeft.readObject();
+			right = (SecMemKDTree) rrRight.readObject();
+			left = (SecMemKDTree) rrLeft.readObject();
 			rf.close();
 		}
 		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
 			e.printStackTrace();
 		}
-
+		this.numAccess++;
+		
 		if( this.axis.compare( q ) < 0 ) {
 
 			mejorActual = right.VecinoMasCercano( q, mejorPrevio, distMejorPrevio );
@@ -164,4 +170,46 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 		return new KDTreeLeaf( q );
 	}
 
+	public int getLenghtOfFile() throws IOException, RecordsFileException {
+		RecordsFile rf = null;
+		try {
+			rf = new RecordsFile( recordsFile, "rw" );
+		}
+		catch( RecordsFileException e ) {
+			try {
+				rf = new RecordsFile( recordsFile, 64 );
+			}
+			catch( RecordsFileException ex ) {
+				throw ex;
+			}
+		}
+		finally {
+			if( rf == null ) throw new RecordsFileException( "Problems to open/create the RecordsFile" );
+		}
+		
+		int size = rf.getLenghtOfFile();
+		rf.close();
+		
+		return size;
+	}
+	
+	public int getNumAccess() {
+		SecMemKDTree right = null;
+		SecMemKDTree left = null;
+		RecordsFile rf = null;
+
+		try {
+			rf = new RecordsFile( this.recordsFile, "r" );
+			RecordReader rrRight = rf.readRecord( keyRight );
+			RecordReader rrLeft = rf.readRecord( keyLeft );
+			right = (SecMemKDTree) rrRight.readObject();
+			left = (SecMemKDTree) rrLeft.readObject();
+			rf.close();
+		}
+		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
+			e.printStackTrace();
+		}
+		
+		return this.numAccess + left.getNumAccess() + right.getNumAccess();
+	}
 }
