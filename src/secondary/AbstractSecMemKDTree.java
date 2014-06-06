@@ -1,10 +1,14 @@
-package KDTree;
+package secondary;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import KDTree.Axis;
+import KDTree.KDTree;
+import KDTree.KDTreeLeaf;
+import KDTree.Point;
 import recordfile.RecordReader;
 import recordfile.RecordWriter;
 import recordfile.RecordsFile;

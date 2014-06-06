@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import recordfile.RecordsFileException;
+import secondary.MeanSecMemKDTreeNode;
 import KDTree.KDTree;
-import KDTree.MeanSecMemKDTreeNode;
 import KDTree.Point;
 
 public class MainExperimentSecondayMemory {

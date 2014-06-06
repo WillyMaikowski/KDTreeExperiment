@@ -1,7 +1,12 @@
-package KDTree;
+package secondary;
 
 import java.io.IOException;
 import java.util.List;
+
+import KDTree.Axis;
+import KDTree.KDTree;
+import KDTree.MedianXAxis;
+import KDTree.Point;
 import recordfile.RecordsFileException;
 
 @SuppressWarnings( "serial" )
