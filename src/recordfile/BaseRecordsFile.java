@@ -356,6 +356,10 @@ public abstract class BaseRecordsFile {
 			writeDataStartPtrHeader( dataStartPtr );
 		}
 	}
+	
+	public int getLenghtOfFile() throws IOException {
+		return (int) this.file.length();
+	}
 
 	/**
 	 * Closes the file.

@@ -93,4 +93,8 @@ public abstract class AbstractKDTreeNode implements KDTree {
 	public KDTree createLeaf( Point q ) {
 		return new KDTreeLeaf( q );
 	}
+	
+	public int getNumAccess() {
+	   return 0;
+   }
 }

@@ -15,4 +15,6 @@ public interface KDTree extends java.io.Serializable {
 	public KDTree createNode( List<Point> points, Axis axis );
 
 	public int height();
+	
+	public int getNumAccess();
 }
