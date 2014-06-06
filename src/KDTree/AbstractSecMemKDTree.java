@@ -11,7 +11,7 @@ import recordfile.RecordsFile;
 import recordfile.RecordsFileException;
 
 @SuppressWarnings( "serial" )
-public abstract class AbstractSecMemKDTree implements SecMemKDTree {
+public abstract class AbstractSecMemKDTree implements KDTree {
 
 	String recordsFile;
 	protected int numAccess;
@@ -24,6 +24,30 @@ public abstract class AbstractSecMemKDTree implements SecMemKDTree {
 		this.recordsFile = recordsFile;
 		this.axis = axis;
 		this.numAccess = 0;
+		
+		// Tenemos que cambiar esta parte para suponer que nuestra
+		// memoria principal no da mas alla que los puntos
+		
+		this.axis.setL( points );
+		List<Point> p1 = new ArrayList<Point>();
+		List<Point> p2 = new ArrayList<Point>();
+		for( Point p : points ) {
+			if( this.axis.compare( p ) <= 0 ) p1.add( p );
+			else p2.add( p );
+
+		}
+
+		points = null;
+		Axis nAxis = axis.getPerpendicular();
+		KDTree left = null; 
+		KDTree right = null;
+		
+		if( p1.size() == 1 )  left = this.createLeaf( p1.get( 0 ) );
+		else if( p1.size() > 1 ) left = this.createNode( p1, nAxis );
+		
+		if( p2.size() == 1 ) right = this.createLeaf( p2.get( 0 ) );
+		else if( p2.size() > 1 ) right = this.createNode( p2, nAxis );
+			
 
 		RecordsFile rf = null;
 		try {
@@ -43,32 +67,15 @@ public abstract class AbstractSecMemKDTree implements SecMemKDTree {
 
 		this.numAccess++;
 		
-		// Tenemos que cambiar esta parte para suponer que nuestra
-		// memoria principal no da mas alla que los puntos
-		
-		this.axis.setL( points );
-		List<Point> p1 = new ArrayList<Point>();
-		List<Point> p2 = new ArrayList<Point>();
-		for( Point p : points ) {
-			if( this.axis.compare( p ) <= 0 ) p1.add( p );
-			else p2.add( p );
-
-		}
-
-		points = null;
-		Axis nAxis = axis.getPerpendicular();
-
 		String uniqueIdLeft = UUID.randomUUID().toString();
 		RecordWriter rwLeft = new RecordWriter( uniqueIdLeft );
-		if( p1.size() == 1 ) rwLeft.writeObject( this.createLeaf( p1.get( 0 ) ) );
-		else if( p1.size() > 1 ) rwLeft.writeObject( this.createNode( p1, nAxis ) );
+		rwLeft.writeObject( left );
 		rf.updateRecord( rwLeft );
 		this.keyLeft = uniqueIdLeft;
 
 		String uniqueIdRight = UUID.randomUUID().toString();
 		RecordWriter rwRight = new RecordWriter( uniqueIdRight );
-		if( p2.size() == 1 ) rwRight.writeObject( this.createLeaf( p2.get( 0 ) ) );
-		else if( p2.size() > 1 ) rwRight.writeObject( this.createNode( p2, nAxis ) );
+		rwLeft.writeObject( right );
 		rf.updateRecord( rwRight );
 		this.keyRight = uniqueIdRight;
 
@@ -76,16 +83,16 @@ public abstract class AbstractSecMemKDTree implements SecMemKDTree {
 	}
 
 	public int height() {
-		SecMemKDTree right = null;
-		SecMemKDTree left = null;
+		KDTree right = null;
+		KDTree left = null;
 		RecordsFile rf = null;
 
 		try {
 			rf = new RecordsFile( this.recordsFile, "r" );
 			RecordReader rrRight = rf.readRecord( keyRight );
 			RecordReader rrLeft = rf.readRecord( keyLeft );
-			right = (SecMemKDTree) rrRight.readObject();
-			left = (SecMemKDTree) rrLeft.readObject();
+			right = (KDTree) rrRight.readObject();
+			left = (KDTree) rrLeft.readObject();
 			rf.close();
 		}
 		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
@@ -106,16 +113,16 @@ public abstract class AbstractSecMemKDTree implements SecMemKDTree {
 	public Point VecinoMasCercano( Point q, Point mejorPrevio, double distMejorPrevio ) {
 		Point mejorActual;
 		double distActual;
-		SecMemKDTree right = null;
-		SecMemKDTree left = null;
+		KDTree right = null;
+		KDTree left = null;
 		RecordsFile rf = null;
 
 		try {
 			rf = new RecordsFile( this.recordsFile, "r" );
 			RecordReader rrRight = rf.readRecord( keyRight );
 			RecordReader rrLeft = rf.readRecord( keyLeft );
-			right = (SecMemKDTree) rrRight.readObject();
-			left = (SecMemKDTree) rrLeft.readObject();
+			right = (KDTree) rrRight.readObject();
+			left = (KDTree) rrLeft.readObject();
 			rf.close();
 		}
 		catch( RecordsFileException | IOException | ClassNotFoundException e ) {
@@ -194,16 +201,16 @@ public abstract class AbstractSecMemKDTree implements SecMemKDTree {
 	}
 	
 	public int getNumAccess() {
-		SecMemKDTree right = null;
-		SecMemKDTree left = null;
+		KDTree right = null;
+		KDTree left = null;
 		RecordsFile rf = null;
 
 		try {
 			rf = new RecordsFile( this.recordsFile, "r" );
 			RecordReader rrRight = rf.readRecord( keyRight );
 			RecordReader rrLeft = rf.readRecord( keyLeft );
-			right = (SecMemKDTree) rrRight.readObject();
-			left = (SecMemKDTree) rrLeft.readObject();
+			right = (KDTree) rrRight.readObject();
+			left = (KDTree) rrLeft.readObject();
 			rf.close();
 		}
 		catch( RecordsFileException | IOException | ClassNotFoundException e ) {

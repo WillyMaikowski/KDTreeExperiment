@@ -39,4 +39,8 @@ public class KDTreeLeaf implements KDTree {
 		return this.VecinoMasCercano( q );
 	}
 
+   public int getNumAccess() {
+	   return 0;
+   }
+
 }

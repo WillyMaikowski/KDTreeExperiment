@@ -16,4 +16,5 @@ public interface KDTree extends java.io.Serializable {
 
 	public int height();
 	
+	public int getNumAccess();
 }
