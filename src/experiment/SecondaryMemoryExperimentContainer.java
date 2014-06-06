@@ -44,7 +44,7 @@ public class SecondaryMemoryExperimentContainer extends StructExperimentContaine
 		return Math.sqrt( var / this.getNumberOBservations() );
 	}
 	
-	public String toString(){
+	public String getResult(){
 		return super.getResult()+ "\t" + this.getAverageAccess()+"\t"+this.getAccessStd();
 	}
 	

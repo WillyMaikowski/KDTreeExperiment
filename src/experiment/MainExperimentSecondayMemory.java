@@ -15,7 +15,7 @@ public class MainExperimentSecondayMemory {
 
 	public static void main( String[] args ) {
 		int minN = 10;
-		int maxN = 11;
+		int maxN = 10;
 		KDTree experimentTree;
 		long startTime;
 		long stopTime;
