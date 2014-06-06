@@ -21,7 +21,7 @@ public abstract class AbstractKDTreeNodeSecMemory implements KDTree {
 		
 	}
 
-	public AbstractKDTreeNodeSecMemory( List<Point> listofPoints, Axis axis ) {
+	public AbstractKDTreeNodeSecMemory( List<Point> listofPoints, Axis axis ) throws IOException, RecordsFileException {
 		this.axis = axis;
 
 		this.axis.setL( listofPoints );
@@ -34,11 +34,21 @@ public abstract class AbstractKDTreeNodeSecMemory implements KDTree {
 		listofPoints = null;
 		Axis nAxis = axis.getPerpendicular();
 
-		if( p1.size() <= Math.pow( 2, 6 ) ) this.left = this.createLeaf( p1.get( 0 ) );
+		if( p1.size() <= Math.pow( 2, 6.38 ) ) this.left = new MedianKDTreeNodeFile( p1, nAxis );
 		else if( p1.size() > 1 ) this.left = this.createNode( p1, nAxis );
-
-		if( p2.size() <= Math.pow( 2, 6 ) ) this.right = this.createLeaf( p2.get( 0 ) );
+		p1 = null;
+		
+		if( p2.size() <= Math.pow( 2, 6.38 ) ) this.right = new MedianKDTreeNodeFile( p2, nAxis );
 		else if( p2.size() > 1 ) this.right = this.createNode( p2, nAxis );
+		
+		axis = null;
+		p2 = null;
+		
+	}
+	
+	public void reInitialize(){
+		this.left.reInitialize();
+		this.right.reInitialize();
 	}
 
 	public Point VecinoMasCercano( KDTree T, Point q ) {
@@ -106,10 +116,11 @@ public abstract class AbstractKDTreeNodeSecMemory implements KDTree {
 	}
 		
 	public int getNumAccess() {
-	   return 0;
+	   return this.left.getNumAccess() + this.right.getNumAccess();
    }
 	
 	public int getLenghtOfFile() throws IOException, RecordsFileException{
-		return 0;
+		return  this.left.getLenghtOfFile() + this.right.getLenghtOfFile();
+				
 	}
 }

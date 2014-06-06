@@ -27,7 +27,7 @@ public class MainExperiment {
 		PrintWriter writer;
 		double c = 1.0;
 		
-		/*List<Point> listofsPoints = generateRandomPoints( c, 6 );
+		List<Point> listofsPoints = generateRandomPoints( c, 6.38 );
 		experimentTree = new MeanKDTreeNode( listofsPoints );
 		try {
 	      int treeSize = sizeof( experimentTree );
@@ -36,7 +36,7 @@ public class MainExperiment {
       catch( IOException e1 ) {
 	      // TODO Auto-generated catch block
 	      e1.printStackTrace();
-      }*/
+      }
 		
 		try {
 			// MeanKDTree con puntos aleatorios
@@ -174,12 +174,12 @@ public class MainExperiment {
 	/**
 	 * genera 2^n puntos al azar
 	 * 
-	 * @param n
+	 * @param d
 	 * @return
 	 */
-	public static List<Point> generateRandomPoints( double c, int n ) {
+	public static List<Point> generateRandomPoints( double c, double d ) {
 		List<Point> result = new ArrayList<Point>();
-		double numPoints = Math.pow( 2, n );
+		double numPoints = Math.pow( 2, d );
 		for( int i = 1; i <= numPoints; i++ ) {
 			result.add( generateRandomPoint( 0, 0, ( c * Math.sqrt( numPoints ) ),
 			      ( c * Math.sqrt( numPoints ) ) ) );

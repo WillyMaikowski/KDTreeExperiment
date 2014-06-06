@@ -105,4 +105,8 @@ public abstract class AbstractKDTreeNode implements KDTree {
 	public int getLenghtOfFile() throws IOException, RecordsFileException{
 		return 0;
 	}
+	
+	public void reInitialize(){
+		
+	}
 }

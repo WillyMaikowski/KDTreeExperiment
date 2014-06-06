@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import recordfile.RecordsFileException;
-import secmemorywilly.MeanSecMemKDTreeNode;
+import secondary.MedianKDTreeNodeSecMem;
 import KDTree.KDTree;
 import KDTree.Point;
 
 public class MainExperimentSecondayMemory {
 
 	public static void main( String[] args ) {
-		int minN = 10;
-		int maxN = 10;
+		int minN = 25;
+		int maxN = 25;
 		KDTree experimentTree;
 		long startTime;
 		long stopTime;
@@ -42,7 +42,7 @@ public class MainExperimentSecondayMemory {
 						List<Point> listofPoints = generateLowDiscrepancyPoints( c,
 						      size );
 						startTime = System.currentTimeMillis();
-						experimentTree = new MeanSecMemKDTreeNode( listofPoints, "SecondaryMemory_"+size+"_"+Math.random()+".txt" );
+						experimentTree = new MedianKDTreeNodeSecMem( listofPoints );
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						expCont.addObservation( experimentTree.height(), elapsedTime,
@@ -88,10 +88,12 @@ public class MainExperimentSecondayMemory {
 		List<Point> result = new ArrayList<Point>();
 		double numPoints = Math.pow( 2, n );
 		double delta = c;
+		int numPuntosA = 0;
 
-		for( double i = 0; i < c * Math.sqrt( numPoints ); i = i + delta ) {
-			for( double j = 0; j < c * Math.sqrt( numPoints ); j = j + delta ) {
+		for( double i = 0; i < c * Math.sqrt( numPoints ) && numPuntosA < numPoints; i = i + delta ) {
+			for( double j = 0; j < c * Math.sqrt( numPoints ) && numPuntosA < numPoints; j = j + delta ) {
 				result.add( generateRandomPoint( i, j, i + delta, j + delta ) );
+				numPuntosA++;
 			}
 		}
 

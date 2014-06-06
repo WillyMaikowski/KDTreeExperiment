@@ -23,4 +23,6 @@ public interface KDTree extends java.io.Serializable {
 	public int getNumAccess();
 	
 	public int getLenghtOfFile() throws IOException, RecordsFileException;
+	
+	public void reInitialize();
 }
