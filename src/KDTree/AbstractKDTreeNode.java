@@ -1,7 +1,10 @@
 package KDTree;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import recordfile.RecordsFileException;
 
 @SuppressWarnings( "serial" )
 public abstract class AbstractKDTreeNode implements KDTree {
@@ -9,6 +12,7 @@ public abstract class AbstractKDTreeNode implements KDTree {
 	protected Axis axis;
 	protected KDTree right;
 	protected KDTree left;
+	
 
 	public AbstractKDTreeNode( List<Point> listofPoints, Axis axis ) {
 		this.axis = axis;
@@ -97,4 +101,8 @@ public abstract class AbstractKDTreeNode implements KDTree {
 	public int getNumAccess() {
 	   return 0;
    }
+	
+	public int getLenghtOfFile() throws IOException, RecordsFileException{
+		return 0;
+	}
 }

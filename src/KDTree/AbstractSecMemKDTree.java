@@ -55,7 +55,7 @@ public abstract class AbstractSecMemKDTree implements KDTree {
 		}
 		catch( RecordsFileException e ) {
 			try {
-				rf = new RecordsFile( recordsFile, 64 );
+				rf = new RecordsFile( recordsFile, (int) Math.pow( 2, 10 ) );
 			}
 			catch( RecordsFileException ex ) {
 				throw ex;

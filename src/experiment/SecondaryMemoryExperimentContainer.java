@@ -28,6 +28,11 @@ public class SecondaryMemoryExperimentContainer extends StructExperimentContaine
 		return 0.0;
 	} 
 	
+	public boolean finished() {
+		int mayorq = 1;
+		return this.getNumberOBservations() >= mayorq;
+	}
+	
 	public double getAccessStd() {
 		if( this.getNumberOBservations() == 0 ) return 0;
 		double avg = this.getAverageAccess();

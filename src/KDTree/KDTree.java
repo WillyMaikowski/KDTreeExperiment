@@ -1,7 +1,11 @@
 package KDTree;
 
 import KDTree.Point;
+
+import java.io.IOException;
 import java.util.List;
+
+import recordfile.RecordsFileException;
 
 public interface KDTree extends java.io.Serializable {
 	public Point VecinoMasCercano( KDTree T, Point q );
@@ -17,4 +21,6 @@ public interface KDTree extends java.io.Serializable {
 	public int height();
 	
 	public int getNumAccess();
+	
+	public int getLenghtOfFile() throws IOException, RecordsFileException;
 }

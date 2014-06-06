@@ -8,16 +8,16 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import recordfile.RecordsFileException;
 import KDTree.KDTree;
-import KDTree.MeanKDTreeNode;
-import KDTree.MedianKDTreeNode;
+import KDTree.MeanSecMemKDTreeNode;
 import KDTree.Point;
 
 public class MainExperimentSecondayMemory {
 
 	public static void main( String[] args ) {
-		int minN = 25;
-		int maxN = 30;
+		int minN = 10;
+		int maxN = 10;
 		KDTree experimentTree;
 		long startTime;
 		long stopTime;
@@ -31,24 +31,24 @@ public class MainExperimentSecondayMemory {
 			
 			// MeanKDTree con puntos de baja discrepancia
 			{
-				treeName = "MeanKDTree";
+				treeName = "MeanKDTreeSecondaryMemory";
 				pointName = "LowDiscrepancy";
 				writer = new PrintWriter( "resultados_construccion_" + treeName
 				      + "_" + pointName + " _" + Math.random() + ".txt" );
 
 				for( int size = minN; size <= maxN; size++ ) {
-					StructExperimentContainer expCont = new StructExperimentContainer(
+					SecondaryMemoryExperimentContainer expCont = new SecondaryMemoryExperimentContainer(
 					      treeName, pointName, (int) Math.pow( 2, size ) );
 
 					while( !expCont.finished() ) {
 						List<Point> listofPoints = generateLowDiscrepancyPoints( c,
 						      size );
 						startTime = System.currentTimeMillis();
-						experimentTree = new MeanKDTreeNode( listofPoints );
+						experimentTree = new MeanSecMemKDTreeNode( listofPoints, "SecondaryMemory_"+size+"_"+Math.random()+".txt" );
 						stopTime = System.currentTimeMillis();
 						elapsedTime = stopTime - startTime;
 						expCont.addObservation( experimentTree.height(), elapsedTime,
-						      sizeof( experimentTree ) );
+								experimentTree.getLenghtOfFile(), experimentTree.getNumAccess() );
 					}
 					writer.println( expCont.getResult() );
 					System.out.println( "Termino 2^" + size + " " + treeName + " "
@@ -64,19 +64,10 @@ public class MainExperimentSecondayMemory {
 		catch( IOException e ) {
 			e.printStackTrace();
 		}
-	}
-
-	public static int sizeof( Object obj ) throws IOException {
-
-		ByteArrayOutputStream byteOutputStream = new ByteArrayOutputStream();
-		ObjectOutputStream objectOutputStream = new ObjectOutputStream(
-		      byteOutputStream );
-
-		objectOutputStream.writeObject( obj );
-		objectOutputStream.flush();
-		objectOutputStream.close();
-
-		return byteOutputStream.toByteArray().length;
+      catch( RecordsFileException e ) {
+	      // TODO Auto-generated catch block
+	      e.printStackTrace();
+      }
 	}
 
 	/**

@@ -2,7 +2,10 @@ package KDTree;
 
 import KDTree.Point;
 
+import java.io.IOException;
 import java.util.List;
+
+import recordfile.RecordsFileException;
 
 @SuppressWarnings( "serial" )
 public class KDTreeLeaf implements KDTree {
@@ -42,5 +45,9 @@ public class KDTreeLeaf implements KDTree {
    public int getNumAccess() {
 	   return 0;
    }
+   
+   public int getLenghtOfFile() throws IOException, RecordsFileException{
+		return 0;
+	}
 
 }
