@@ -27,7 +27,7 @@ public class MedianKDTreeNodeFile implements KDTree {
 	
 	public MedianKDTreeNodeFile( List<Point> points, Axis axis ) throws IOException, RecordsFileException {
 		
-		this.key = UUID.randomUUID().toString();
+	   this.key = UUID.randomUUID().toString();
 		
 	   KDTree kdtree = new MedianKDTreeNode(points, axis);
 	   this.height = kdtree.height();
